@@ -18,6 +18,7 @@ pause();
 
 write(puerto_serial,1,"uint8")
 readline(puerto_serial)
+
 for i = 1 : 1000
     
 y(i) = str2double(readline(puerto_serial));
