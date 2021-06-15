@@ -1,6 +1,6 @@
 
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/aleir97/ama)
-[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/badges.svg)](https://github.com/aleir97/ehand/graphs/contributors/)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://www.linkedin.com/in/aireguivalcarcel/)
+[![GitHub contributors](https://img.shields.io/github/contributors/aleir97/badges.svg)](https://github.com/aleir97/ehand/graphs/contributors/)
 
 
 
