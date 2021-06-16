@@ -6,7 +6,7 @@ import pandas as pd
 
 sampleRate = 1000
 
-port = serial.Serial('COM5', baudrate=115200, timeout=1.0) # Establish connection with arduino
+port = serial.Serial('COM5', baudrate=115200, timeout=0.5) # Establish connection with arduino
 port.setDTR(False)
 time.sleep(1)
 port.flushInput()
@@ -33,8 +33,8 @@ while input('**** PROGRAM TO READ EMG SAMPLES FROM SERIAL PORT AND CONVERT TO CS
 
     if line == 'ini\r\n':
         for i in range(sampleRate):
-            #print('LECTURA A1:', port.readline().decode('ascii'))
-            #print('LECTURA A2:', port.readline().decode('ascii'))
+            #print('MEASURE A1:', port.readline().decode('ascii'))
+            #print('MEASURE A2:', port.readline().decode('ascii'))
             A1.append(port.readline().decode('ascii'))
             A2.append(port.readline().decode('ascii'))
 
