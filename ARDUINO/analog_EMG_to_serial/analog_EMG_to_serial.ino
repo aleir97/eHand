@@ -6,49 +6,50 @@
 
 short unsigned int time = 0;
 short unsigned int tpersample = 1000/samplerate; // Milliseconds
-String ini;
 
 void setup() {
   Serial.begin(115200);
   Serial.setTimeout(500);
 
   // If you wanna graph both signals in real time.    
-  // Serial.println("CH1:, CH2:");
+  Serial.println("CH1:, CH2:");
    
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  ini = Serial.readString();
-
   digitalWrite(LED_BUILTIN, HIGH);
   delay(1000);
   digitalWrite(LED_BUILTIN, LOW);
   delay(1000);
-      
-  if (ini == "ini"){
-    digitalWrite(LED_BUILTIN, HIGH);
-
-    Serial.read();
-    Serial.println("ini");    
   
-    while(!Serial.available()){    
+  if (Serial.available()){
+    if (Serial.readString() == "ini"){
+      digitalWrite(LED_BUILTIN, HIGH);
+  
+      // Python Sync
       Serial.read();
-      if (time <= millis()){
-        time = millis();
-
-        // If you wanna graph both signals in real time.    
-        /*Serial.print(analogRead(EMG_CH1));
-        Serial.print(" ");
-        Serial.println(analogRead(EMG_CH2));
-        */
+      Serial.println("ini");    
     
-        // We are using println for the python communication.
-        Serial.println(analogRead(EMG_CH1));
-        Serial.println(analogRead(EMG_CH2));
-         
-        time = time + tpersample;
+      while(!Serial.available()){    
+        Serial.read();
+        if (time <= millis()){
+          time = millis();
+  
+          // If you wanna graph both signals in real time.    
+          Serial.print(analogRead(EMG_CH1));
+          Serial.print(" ");
+          Serial.println(analogRead(EMG_CH2));
+          
+      
+          // We are using println for the python communication.
+          //Serial.println(analogRead(EMG_CH1));
+          //Serial.println(analogRead(EMG_CH2));
+           
+          time = time + tpersample;
+        }
       }
+      Serial.read();
     }
   }
 }
