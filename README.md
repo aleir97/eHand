@@ -23,15 +23,17 @@ Olimex SHIELD-EKG-EMG:
 
 <html>
   <head>
-    <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
     https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/open-source-hardware
+    <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
   </head>
 </html>
 
+Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:
+
 <html>
   <head>
-    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
     https://shorturl.at/uDEMS
+    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
   </head>
 </html>
 
