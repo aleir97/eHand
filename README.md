@@ -4,21 +4,36 @@
 
 <html>
   <head>
-    <img align="middle" src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
+    <img src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
   </head>
 </html>
 
 
 # eHand
 eHand se trata de un proyecto tecnológico, social y totalmente Open Source en el que se busca construir Hardware y Software para el análisis electromiográfico con el fin de controlar una prótesis electromecánica para gente amputada.
-Mediante sensores y electrodos se medirán los pocos milivoltios que se generan durante la actividad muscular y dichas señales eléctricas serán convertidas de Análogico a Digital por un arduino y la información que se genere será enviada al PC via puerto serie en donde habrá un programa de Python escuchando.
+Mediante sensores y electrodos se medirán los pocos milivoltios que se generan durante la actividad muscular y dichas señales eléctricas serán convertidas de Análogico a Digital por un Arduino, la información que se genere será enviada al PC via puerto serie en donde habrá un programa de Python escuchando.
 Finalmente, mediante herramientas matemáticas para el procesado de señales en este programa, se extraerán patrones de clasificación sobre los diferentes movimientos deseados para con ellos controlar la prótesis.
 
 eHand is a technological, social and totally Open Source project that seeks to build Hardware and Software for electromyographic analysis in order to control an electromechanical prosthesis for amputee people.
 Using sensors and electrodes, the few millivolts that are generated during muscle activity will be measured. These electric signals are converted from Analog to Digital by an Arduino and the generated information will be sent to the PC via serial port where a Python program is listening.
 Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system.
 
+# Placas Electromiográficas
+Olimex SHIELD-EKG-EMG:
 
+<html>
+  <head>
+    <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
+  </head>
+</html>
+https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/open-source-hardware
+
+<html>
+  <head>
+    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
+  </head>
+</html>
+shorturl.at/uDEMS
 
 ### Datos Adicionales
     EMAIL:       a.ireguiv@udc.es
