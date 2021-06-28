@@ -14,19 +14,25 @@ def butter_bandpass(lowcut, highcut, fs, order=5):
 
 
 freq = 1000 
-n = np.arange(1, 1000)
+n = np.arange(1, 1001)
 
 # Signal features in time domain
-for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
+for file in ['resting.csv', 'resting2.csv', 'resting3.csv', 'flexion.csv', 'flexion2.csv',  'flexion3.csv', 'extension.csv','extension2.csv','extension3.csv']:
     print("DATA FROM FILE: "+ file)
     signal = pd.read_csv(file)
     ch1 = signal["CH1"].to_numpy()
     ch2 = signal["CH2"].to_numpy()    
     
+    order = 5
+    lowcut = 40 / (freq/2)
+    b, a = sg.butter(order, lowcut, 'low', analog=False)
+    ch1 = sg.lfilter(b, a, ch1)
+    ch2 = sg.lfilter(b, a, ch2)
+
     ch1mean = mean(ch1) 
     ch2mean = mean(ch2)
-    print("MEAN OF THE CHANNEL 1: "+ str(ch1mean))
-    print("MEAN OF THE CHANNEL 1: "+ str(ch2mean))
+    #print("MEAN OF THE CHANNEL 1: "+ str(ch1mean))
+    #print("MEAN OF THE CHANNEL 1: "+ str(ch2mean))
     plt.figure(1)
     plt.scatter(ch1mean, ch2mean)
     plt.title('Linearly separable data from MEAN')
@@ -36,7 +42,7 @@ for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
     ch1rms = np.sqrt(np.mean(ch1**2))
     ch2rms = np.sqrt(np.mean(ch2**2))
     print("RMS FROM CHANNEL 1: "+ str(ch1rms))
-    print("RMS FROM CHANNEL 1: "+ str(ch2rms))
+    print("RMS FROM CHANNEL 2: "+ str(ch2rms))
     plt.figure(2)
     plt.scatter(ch1rms, ch2rms)
     plt.title('Linearly separable data from RMS')
@@ -45,8 +51,8 @@ for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
 
     ch1var = np.var(ch1)
     ch2var = np.var(ch2)
-    print("VARIANCE FROM CH1: "+ str(ch1var))
-    print("VARIANCE FROM CH2: "+ str(ch2var))
+    #print("VARIANCE FROM CH1: "+ str(ch1var))
+    #print("VARIANCE FROM CH2: "+ str(ch2var))
     plt.figure(3)
     plt.scatter(ch1var, ch2var)
     plt.title('Linearly separable data from VARIANCE')
@@ -63,14 +69,14 @@ plt.show()
 #band_high_stop = 10 / (freq/2)
 # N, Wn = sg.buttord([band_high_pass, band_low_pass], [band_high_stop, band_low_stop], 3, 60, False)
 
-## Easy way, cuts in Hz
-#order = 5
-#lowcut = 20
-#highcut= 100
+# Easy way, cuts in Hz
+#order= 4
+#lowcut= 40 
+#highcut= 50
 #b, a = butter_bandpass(lowcut, highcut, freq, order)
 #w, h = sg.freqz(b, a, worN=2000)
-#
-## Plot filter response
+
+##Plot filter response
 #plt.figure(1)
 #plt.clf()
 #plt.plot((freq * 0.5 / np.pi) * w, abs(h), label="order = %d" % order)
@@ -80,22 +86,24 @@ plt.show()
 #plt.grid(True)
 #plt.legend(loc='best')
 #
-#filt_ext = sg.lfilter(b, a, extsig)
-#filt_rest = sg.lfilter(b, a, restsig)
+#filt_ch1 = sg.lfilter(b, a, ch1)
+#filt_ch2 = sg.lfilter(b, a, ch2)
 #
 #plt.figure(2)
 #plt.subplot(221)
-#plt.stem(n, extsig)
+#plt.stem(n, ch1)
 #
 #plt.subplot(222)
-#plt.stem(n, restsig)
+#plt.stem(n, ch2)
 #
 #plt.subplot(223)
-#plt.stem(n, np.abs(filt_ext))
+#plt.stem(n, np.abs(filt_ch1))
 #
 #plt.subplot(224)
-#plt.stem(n, np.abs(filt_rest))
+#plt.stem(n, np.abs(filt_ch2))
 #
+#plt.show()
+
 ## FFT Analysis
 #plt.figure(3)
 #
