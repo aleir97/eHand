@@ -1,10 +1,19 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://www.linkedin.com/in/aireguivalcarcel/)
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+
 
 <html>
   <head>
-    <img src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
+    <img src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" class="center">
   </head>
 </html>
 
