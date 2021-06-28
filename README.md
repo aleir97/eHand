@@ -3,9 +3,9 @@
 
 
 <html>
-  <center>
-    <img src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
-  </center>
+  <head>
+    <img align="middle" src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
+  </head>
 </html>
 
 
