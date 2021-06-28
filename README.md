@@ -1,14 +1,18 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://www.linkedin.com/in/aireguivalcarcel/)
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
-<style>
+
+(setq markdown-xhtml-header-content
+      "<style>
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
-</style>
+</style>")
+
+
 
 
 <html>
