@@ -4,8 +4,7 @@
 
 <html>
   <head>
-  <a href="link" style="text-align: center">
-    <img src="URL" src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" align="center"></a>
+    <img align="middle" src="https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg" high="300" width="500" onclick="">
   </head>
 </html>
 
