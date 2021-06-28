@@ -19,7 +19,7 @@ Using sensors and electrodes, the few millivolts that are generated during muscl
 Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system.
 
 # Placas Electromiográficas
-Olimex SHIELD-EKG-EMG:
+**Olimex SHIELD-EKG-EMG:**
 
 <html>
   <head>
@@ -28,7 +28,7 @@ Olimex SHIELD-EKG-EMG:
   </head>
 </html>
 
-Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:
+**Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 
 <html>
   <head>
