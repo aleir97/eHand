@@ -20,7 +20,6 @@ Finally, using mathematical tools for signal processing, classification patterns
 
 # Placas Electromiográficas
 **Olimex SHIELD-EKG-EMG:**
-
 <html>
   <head>
     https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/open-source-hardware
@@ -28,8 +27,8 @@ Finally, using mathematical tools for signal processing, classification patterns
   </head>
 </html>
 
-**Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 
+**Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 <html>
   <head>
     https://shorturl.at/uDEMS
