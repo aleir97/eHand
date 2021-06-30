@@ -44,6 +44,8 @@ Finally, using mathematical tools for signal processing, classification patterns
 
 
 ### Datos Adicionales
+    Si estás interesado en colaborar con el proyecto o simplemente tienes curiosidad, contáctame!
+    If you are interested in colaborating or just curious about it, contact me!
     EMAIL:       a.ireguiv@udc.es
-   
+    
 
