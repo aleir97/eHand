@@ -17,6 +17,13 @@ eHand is a technological, social and totally Open Source project that seeks to b
 Using sensors and electrodes, the few millivolts that are generated during muscle activity will be measured. These electric signals are converted from Analog to Digital by an Arduino and the generated information will be sent to the PC via serial port where a Python program is listening.
 Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system.
 
+<html>
+  <head>
+    <img src="https://github.com/aleir97/eHand/blob/master/DOC/prostheses_general_architecture.png" high="300" width="500" class="center">
+  </head>
+</html>
+
+
 # Placas Electromiográficas
 **Olimex SHIELD-EKG-EMG:**
 <html>
