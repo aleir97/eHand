@@ -5,15 +5,29 @@ import numpy as np
 from numpy.core.fromnumeric import mean
 import pandas as pd
 
-def butter_bandpass(lowcut, highcut, fs, order=5):
-        
+def butter_bandpass(fs, lowcut, highcut=None, order=None):
+    if (highcut == None & order == None):
+        fstop = lowcut / (0.5 * fs)
+        fpass = fs - 20
+         
+        N, Wn = sg.buttord([fpass, fstop], 5, 60, False)
+        b, a = sg.butter(N, lowcut, 'low', analog=False)    
+
+        return b,a
+    
+    elif(highcut == None):
+        lowcut = lowcut / (0.5 * fs)
+        b, a = sg.butter(order, lowcut, 'low', analog=False)    
+
+        return b,a    
+
     # Filter Design
     # If you wanna calculate the precise order for filtering
     #band_low_pass = 150 / (freq/2) # from Hz to Rad/s
     #band_low_stop = 160 / (freq/2)
     #band_high_pass = 20 / (freq/2)
     #band_high_stop = 10 / (freq/2)
-    # N, Wn = sg.buttord([band_high_pass, band_low_pass], [band_high_stop, band_low_stop], 3, 60, False)
+    #N, Wn = sg.buttord([band_high_pass, band_low_pass], [band_high_stop, band_low_stop], 3, 60, False)
 
     # Easy way, cuts in Hz
     #order= 4
@@ -76,28 +90,28 @@ n = np.arange(1, 1001)
  
 def main():
     # Signal features in time domain
-    for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
-    #for file in ['resting.csv', 'resting2.csv', 'resting3.csv', 'flexion.csv', 'flexion2.csv',  'flexion3.csv', 'extension.csv','extension2.csv','extension3.csv']:
+    #for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
+    for file in ['resting.csv', 'resting2.csv', 'resting3.csv', 'flexion.csv', 'flexion2.csv',  'flexion3.csv', 'extension.csv','extension2.csv','extension3.csv']:
         print("DATA FROM FILE: "+ file)
         signal = pd.read_csv(file)
         ch1 = signal["CH1"].to_numpy()
         ch2 = signal["CH2"].to_numpy()    
         
-        order = 5
-        lowcut = 40 / (freq/2)
-        b, a = sg.butter(order, lowcut, 'low', analog=False)
-        ch1 = sg.lfilter(b, a, ch1)
-        ch2 = sg.lfilter(b, a, ch2)
+        #order = 5
+        #lowcut = 40 / (freq/2)
+        #b, a = sg.butter(order, lowcut, 'low', analog=False)
+        #ch1 = sg.lfilter(b, a, ch1)
+        #ch2 = sg.lfilter(b, a, ch2)
 
         ch1mean = mean(ch1) 
         ch2mean = mean(ch2)
         #print("MEAN OF THE CHANNEL 1: "+ str(ch1mean))
         #print("MEAN OF THE CHANNEL 1: "+ str(ch2mean))
-        plt.figure(1)
-        plt.scatter(ch1mean, ch2mean)
-        plt.title('Linearly separable data from MEAN')
-        plt.xlabel('ch1')
-        plt.ylabel('ch2')
+        #plt.figure(1)
+        #plt.scatter(ch1mean, ch2mean)
+        #plt.title('Linearly separable data from MEAN')
+        #plt.xlabel('ch1')
+        #plt.ylabel('ch2')
 
         ch1rms = np.sqrt(np.mean(ch1**2))
         ch2rms = np.sqrt(np.mean(ch2**2))
@@ -113,13 +127,13 @@ def main():
         ch2var = np.var(ch2)
         #print("VARIANCE FROM CH1: "+ str(ch1var))
         #print("VARIANCE FROM CH2: "+ str(ch2var))
-        plt.figure(3)
-        plt.scatter(ch1var, ch2var)
-        plt.title('Linearly separable data from VARIANCE')
-        plt.xlabel('ch1')
-        plt.ylabel('ch2')
+        #plt.figure(3)
+        #plt.scatter(ch1var, ch2var)
+        #plt.title('Linearly separable data from VARIANCE')
+        #plt.xlabel('ch1')
+        #plt.ylabel('ch2')
 
-        plot_fft(file, ch1, ch2)
+        #plot_fft(file, ch1, ch2)
     plt.show()
 
 if __name__ == "__main__":
