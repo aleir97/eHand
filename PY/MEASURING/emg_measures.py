@@ -3,21 +3,33 @@ import winsound
 import numpy as np
 import time
 import pandas as pd
+import matplotlib.pyplot as plt
 
-sampleRate = 1000
+def save_csv(A1, A2):
+    data = {'CH1': A1,
+            'CH2': A2}
 
-port = serial.Serial('COM5', baudrate=115200, timeout=0.5) # Establish connection with arduino
+    df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
+    path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\med' + str(med) + '.csv' 
+    df.to_csv (path, index = False, header=True)
+
+# Serial port connection
+port = serial.Serial('COM3', baudrate=115200, timeout=0.5) # Establish connection with arduino
 port.setDTR(False)
 time.sleep(1)
 port.flushInput()
 port.setDTR(True)
 
+# MAIN
+n = np.arange(1, 1001)
+sampleRate = 1000
 med = 0
 while input('**** PROGRAM TO READ EMG SAMPLES FROM SERIAL PORT AND CONVERT TO CSV: ****\n (e)xit \n enter \n') != 'e':
     A1 = []
     A2 = []
     med += 1
     
+    #Sound parameters
     frequency = 500  # Set Frequency To 2500 Hertz
     duration = 2000  # Set Duration To 1000 ms == 1 second
     winsound.Beep(frequency, duration)
@@ -41,19 +53,23 @@ while input('**** PROGRAM TO READ EMG SAMPLES FROM SERIAL PORT AND CONVERT TO CS
     else:
         print('NO LEÍ EL INI :(')
         exit()
-    
-    A1= np.asarray(A1)
-    A2= np.asarray(A2)
-
-    data = {'CH1': A1,
-            'CH2': A2}
-
-    df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
-    path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\med' + str(med) + '.csv' 
-    df.to_csv (path, index = False, header=True)
 
     port.write(bytes(b'stop'))
 
+    A1= list(map(int,A1))
+    A2= list(map(int,A2))
+    
+    plt.figure()
+    ax = plt.subplot(211)
+    ax.set_title("CH1:")
+    plt.plot(n, A1)
+
+    ax = plt.subplot(212)
+    ax.set_title("CH2:")
+    plt.plot(n, A2)
+
+    plt.show()
+    save_csv(A1, A2)
 
 
 
