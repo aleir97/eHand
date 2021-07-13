@@ -12,7 +12,7 @@ void setup() {
   Serial.setTimeout(500);
 
   // If you wanna graph both signals in real time.    
-  Serial.println("CH1:, CH2:");
+  //Serial.println("CH1:, CH2:");
    
   pinMode(LED_BUILTIN, OUTPUT);
 }
@@ -37,14 +37,14 @@ void loop() {
           time = millis();
   
           // If you wanna graph both signals in real time.    
-          Serial.print(analogRead(EMG_CH1));
-          Serial.print(" ");
-          Serial.println(analogRead(EMG_CH2));
-          
-      
-          // We are using println for the python communication.
-          //Serial.println(analogRead(EMG_CH1));
+          //Serial.print(analogRead(EMG_CH1));
+          //Serial.print(" ");
           //Serial.println(analogRead(EMG_CH2));
+          
+          
+          // We are using println for the python communication.
+          Serial.println(analogRead(EMG_CH1));
+          Serial.println(analogRead(EMG_CH2));
            
           time = time + tpersample;
         }

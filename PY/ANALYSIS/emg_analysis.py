@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy.core.fromnumeric import mean
 import pandas as pd
+import os 
 
 def butter_bandpass(fs, lowcut, highcut=None, order=None):
     if (highcut == None & order == None):
@@ -90,50 +91,76 @@ n = np.arange(1, 1001)
  
 def main():
     # Signal features in time domain
-    #for file in ['resting.csv', 'flexion.csv', 'extension.csv']:
-    for file in ['resting.csv', 'resting2.csv', 'resting3.csv', 'flexion.csv', 'flexion2.csv',  'flexion3.csv', 'extension.csv','extension2.csv','extension3.csv']:
-        print("DATA FROM FILE: "+ file)
-        signal = pd.read_csv(file)
-        ch1 = signal["CH1"].to_numpy()
-        ch2 = signal["CH2"].to_numpy()    
-        
-        #order = 5
-        #lowcut = 40 / (freq/2)
-        #b, a = sg.butter(order, lowcut, 'low', analog=False)
-        #ch1 = sg.lfilter(b, a, ch1)
-        #ch2 = sg.lfilter(b, a, ch2)
+    dire = r'D:\PROYECTO_MANO_FPGA\GIT\PY\ANALYSIS\data_analysis'
 
-        ch1mean = mean(ch1) 
-        ch2mean = mean(ch2)
-        #print("MEAN OF THE CHANNEL 1: "+ str(ch1mean))
-        #print("MEAN OF THE CHANNEL 1: "+ str(ch2mean))
-        #plt.figure(1)
-        #plt.scatter(ch1mean, ch2mean)
-        #plt.title('Linearly separable data from MEAN')
-        #plt.xlabel('ch1')
-        #plt.ylabel('ch2')
+    #for file in ['resting.csv', 'flexion.csv', 'extension.csv', 'puño.csv']:
+    #for file in ['resting.csv', 'resting2.csv', 'resting3.csv', 'flexion.csv', 'flexion2.csv',  'flexion3.csv', 'extension.csv','extension2.csv','extension3.csv']:
+    for entry in os.scandir(dire):
+        if (entry.is_file()):
+           
+            print("DATA FROM FILE: "+ entry.name)
+            signal = pd.read_csv(entry.path)
+            ch1 = signal["CH1"].to_numpy()
+            ch2 = signal["CH2"].to_numpy()    
+            
+            #plt.figure()
+            #ax = plt.subplot(211)
+            #ax.set_title(entry.name + ", CH1:")
+            #plt.stem(n, ch1)
 
-        ch1rms = np.sqrt(np.mean(ch1**2))
-        ch2rms = np.sqrt(np.mean(ch2**2))
-        print("RMS FROM CHANNEL 1: "+ str(ch1rms))
-        print("RMS FROM CHANNEL 2: "+ str(ch2rms))
-        plt.figure(2)
-        plt.scatter(ch1rms, ch2rms)
-        plt.title('Linearly separable data from RMS')
-        plt.xlabel('ch1')
-        plt.ylabel('ch2')
+            #ax = plt.subplot(212)
+            #ax.set_title("CH2:")
+            #plt.stem(n, ch2)
 
-        ch1var = np.var(ch1)
-        ch2var = np.var(ch2)
-        #print("VARIANCE FROM CH1: "+ str(ch1var))
-        #print("VARIANCE FROM CH2: "+ str(ch2var))
-        #plt.figure(3)
-        #plt.scatter(ch1var, ch2var)
-        #plt.title('Linearly separable data from VARIANCE')
-        #plt.xlabel('ch1')
-        #plt.ylabel('ch2')
+            #order = 5
+            #lowcut = 40 / (freq/2)
+            #b, a = sg.butter(order, lowcut, 'low', analog=False)
+            #ch1 = sg.lfilter(b, a, ch1)
+            #ch2 = sg.lfilter(b, a, ch2)
 
-        #plot_fft(file, ch1, ch2)
+            ch1mean = mean(ch1) 
+            ch2mean = mean(ch2)
+            #print("MEAN OF THE CHANNEL 1: "+ str(ch1mean))
+            #print("MEAN OF THE CHANNEL 1: "+ str(ch2mean))
+            #plt.figure(1)
+            #plt.scatter(ch1mean, ch2mean)
+            #plt.title('Linearly separable data from MEAN')
+            #plt.xlabel('ch1')
+            #plt.ylabel('ch2')
+
+            ch1rms = np.sqrt(np.mean(ch1**2))
+            ch2rms = np.sqrt(np.mean(ch2**2))
+            print("RMS FROM CHANNEL 1: "+ str(ch1rms))
+            print("RMS FROM CHANNEL 2: "+ str(ch2rms))
+            
+            color = ''
+
+            if "ext" in entry.name:
+                color = 'red'
+            elif 'rest'  in entry.name:
+                color= 'blue' 
+            elif 'fist' in entry.name:
+                color= 'black'
+            elif 'flex' in entry.name:
+                color = 'coral'
+
+            plt.figure(2)
+            plt.scatter(ch1rms, ch2rms, c=color)
+            plt.title('Linearly separable data from RMS')
+            plt.xlabel('ch1')
+            plt.ylabel('ch2')
+
+            #ch1var = np.var(ch1)
+            #ch2var = np.var(ch2)
+            #print("VARIANCE FROM CH1: "+ str(ch1var))
+            #print("VARIANCE FROM CH2: "+ str(ch2var))
+            #plt.figure(3)
+            #plt.scatter(ch1var, ch2var)
+            #plt.title('Linearly separable data from VARIANCE')
+            #plt.xlabel('ch1')
+            #plt.ylabel('ch2')
+
+            #plot_fft(file, ch1, ch2)
     plt.show()
 
 if __name__ == "__main__":
