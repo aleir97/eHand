@@ -10,13 +10,13 @@ def save_csv(A1, A2, file):
             'CH2': A2}
 
     df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
-    path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\\' + file + '.csv' 
+    path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\MEASURING\Measures\\' + file + '.csv' 
     df.to_csv (path, index = False, header=True)
 
 def make_sound():
     #Sound parameters
-    frequency = 500  # Set Frequency To 2500 Hertz
-    duration = 2000  # Set Duration To 1000 ms == 1 second
+    frequency = 500  # Set Frequency To 500 Hertz
+    duration = 2000  # Set Duration To 2000 ms == 2 second
     winsound.Beep(frequency, duration)
 
 def plot_measures(n, A1, A2):
