@@ -64,6 +64,7 @@ def svm_classifier():
 
     accuracy_lin, accuracy_poly, accuracy_rbf, accuracy_sig = 0, 0, 0 ,0   
 
+    # Mean calculations for score
     for i in range(1,11):
         X_train, X_test, y_train, y_test= train_test_split(data, targets, test_size=0.3, random_state=109)
 

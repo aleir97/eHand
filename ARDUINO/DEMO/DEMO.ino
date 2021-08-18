@@ -1,6 +1,6 @@
 #include <string.h>
 
-#define EMG_CH1 1
+#define EMG_CH1 0
 #define EMG_CH2 1
 #define samplerate 1000; // Hz
 

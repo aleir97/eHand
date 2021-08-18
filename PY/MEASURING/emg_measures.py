@@ -57,6 +57,10 @@ def main():
             med_type = 'ext'
         elif med_type == '4':
             med_type = 'fist'
+        elif med_type == '':
+            exit()    
+        else:
+            exit()
 
         A1 = []
         A2 = []
