@@ -43,7 +43,7 @@ def main():
                 rms = int (np.round(np.sqrt(np.mean(A1**2))))
                 #rms = np.mean(A1)
 
-                if(rms > 150 ):
+                if(rms > 300 ):
                     mouse.click('left')
 
                 print(rms)
