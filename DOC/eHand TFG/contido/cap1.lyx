@@ -1,0 +1,719 @@
+#LyX file created by tex2lyx 2.3
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin D:/PROYECTO_MANO_FPGA/GIT/DOC/eHand TFG/contido/
+\textclass article
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+chapter{Placas, configuraciÃ³n para las lecturas y primeras muestras}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:cap1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+lettrine
+\end_layout
+
+\end_inset
+
+ Cual serÃ­a entonces la forma de leer estas seÃ±ales de forma fÃ¡cil? Esta fue la pregunta que me hice y mi primer recurso de informaciÃ³n para responderla fue internet. Indagando encontrÃ© que existÃ­an algunos fabricantes estadounidenses de PCBs para desarrollo que ofrecÃ­an soluciones de difÃ­cil acceso y a coste alto. Por ello seguÃ­ buscando y topÃ© con un canal llamado 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+Biomakers
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+ en donde habÃ­a tutoriales muy buenos sobre EMG, ECG, EEG, e incluso, enseÃ±aba diseÃ±os para la circuiterÃ­a necesaria. Quiero comenzar este capÃ­tulo entonces hablando a grandes rasgos de la composiciÃ³n de los mismos ya que me sorprendiÃ³ lo sencillos que son. El principio bÃ¡sico de un sensor se trata en mapear una magnitud real como la luz, la temperatura u otros en funciones matemÃ¡ticas, extraemos valores del mundo que nos rodea para poder representarlos de forma transductible. En este caso al estar leyendo los pocos milivoltios que se generan durante la actividad muscular, entre nuestra seÃ±al y sensor no existirÃ¡ la necesidad de hacer transformaciones entre magnitudes ya que simplemente servirÃ¡ como amplificador de la actividad para obtener un seÃ±al manipulable.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement hp!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename imaxes/circuito.png
+	width 95text%
+	height 5.5cm
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El circuito de la figura hace referencia a la placa SHIELD-EKG-EMG de Olimex, como su nombre indica se trata de un 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+escudo
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+ que se puede apilar sobre las placas de tipo Arduino Uno y cuenta con todos los componentes para ser calibrada y conectada a la misma. Esta parte de su esquemÃ¡tico se corresponde con la del sensor electromiogrÃ¡fico.
+\end_layout
+
+\begin_layout Standard
+Empezando desde las izquierda del todo vemos que existe una conexiÃ³n 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+CH_IN
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+ en donde tenemos 3 terminales de conexiÃ³n L, R y Masa, correspondiÃ©ndose cada uno con los terminales de los 3 electrodos. A grandes rasgos, lo que podemos ver es que las corrientes recogidas por estos elementos irÃ¡n pasando por varias fases de amplificaciÃ³n y filtrado. Comenzando por componentes de protecciÃ³n pasamos a una etapa en donde rechazaremos frecuencias altas y a continuaciÃ³n, amplificaremos la seÃ±al mediante un Amplificador Operacional de cierta ganancia. Seguimos entonces con etapas de filtrado para la frecuencia de 0 Hz caracterÃ­stica de la corriente continua para finalmente, llegar a una etapa que creo merece cierta explicaciÃ³n.
+\end_layout
+
+\begin_layout Standard
+En este caso se trata de una fase en donde utilizaremos un Amplificador de ganancia regulada. Y porque regulada? Bien, durante la introducciÃ³n explicaba que este tipo de sensores va a estar afectado por ciertas caracterÃ­sticas fÃ­sicas de la persona y puede ocurrir, que no tenga la sensibilidad suficiente para recoger seÃ±ales desde la superficie (ya sea por el Ã­ndice de grasa que separa el sensor y el mÃºsculo o tambiÃ©n por la poca masa muscular de la zona). Por esto mismo la PCB de Olimex nos permite adaptarnos a cualquier situaciÃ³n. La calibraciÃ³n para esta placa en mi opiniÃ³n es un poco engorrosa ya que se hace de forma fÃ­sica y mediante una seÃ±al PWM que genera, por lo que serÃ­a interesante que se pudiese hacer de manera completamente Software.
+\end_layout
+
+\begin_layout Standard
+Pasando a la configuraciÃ³n de sensores y microcontroladores que se utilizÃ³ para este proyecto, el sensor de Olimex no fue el Ãºnico componente que utilicÃ© para los experimentos y en realidad, los resultados que figurarÃ¡n aquÃ­ se corresponden con otra placa. Esto tambiÃ©n merece explicaciÃ³n ya que antes de descubrir la antes descrita, un dÃ­a tuve la suerte de toparme con la siguiente PCB de China.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement hp!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename imaxes/placa_china.jpg
+	width 60text%
+	height 5cm
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ActionButton
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:plot"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Concretamente la encontrÃ© en Aliexpress y por 15â¬, trae un pack con los electrodos, parches y sensor. Desde que me llegÃ³ y la probÃ© me di cuenta de que era la indicada para este proyecto, el precio es irresistible, el tamaÃ±o y la utilidad que ofrece es muy buena, ademÃ¡s, es muy fÃ¡cil de poner a funcionar. Para ello necesita una alimentaciÃ³n de +9v y -9v, utiliza la referencia positiva y negativa para hacer operaciones, la salida la da por el terminal de 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+sig
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+"
+\end_layout
+
+\end_inset
+
+ y se trata de una seÃ±al analÃ³gica de entre 0v y 3v, es decir, completamente positiva (esto tiene sentido porque el Arduino es incapaz de leer voltajes negativos en sus terminales analÃ³gicos). 
+\begin_inset VSpace 0.15cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Por lo tanto contamos con el siguiente Setup para los experimentos: 
+\end_layout
+
+\begin_layout Itemize
+2 Placas PCB. 
+\end_layout
+
+\begin_layout Itemize
+Arduino UNO. 
+\end_layout
+
+\begin_layout Itemize
+Electrodos en seco y hÃºmedos. 
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement hp!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename imaxes/montaje.png
+	width 100mm
+	height 5cm
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename imaxes/configuracion.png
+	width 12.5cm
+	height 6.5cm
+	scale 50
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ActionButton
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "ActionButton"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El montaje es bastante trivial, lo puede hacer cualquiera en casa y con un kit de principiantes para electrÃ³nica. Se puede ver que que con 10 cables estarÃ­a todo montado, por lo que serÃ­a muy fÃ¡cil con este tamaÃ±o e incluso un Arduino del tipo Nano diseÃ±ar una carcasa a impresora 3d, para acoplarlo todo de forma cÃ³moda.
+\end_layout
+
+\begin_layout Standard
+DespuÃ©s de habernos colocado los electrodos, comenzar a leer los primeros valores es tan fÃ¡cil como configurar en el cÃ³digo del Arduino el puerto serial y leer dentro del loop por los puertos AnalÃ³gicos. Aclarando ahora que no voy a entrar en detalles sobre el cÃ³digo ya que es muy simple el funcionamiento y todo estarÃ¡ completamente disponible in mi GitHub.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement hp!
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+\begin_inset Graphics 
+	filename imaxes/resting.png
+	width 75text%
+	scale 50
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ActionButton
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:plot"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figura 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+autoref
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+fig:plot
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ se trata de un ejemplo de dibujo para las 2 seÃ±ales de nuestros mÃºsculos en reposo, se trata de un plot en tiempo real que nos muestra la herramienta de Serial Plotter y que trae el IDE de Arduino.
+\end_layout
+
+\begin_layout Standard
+Para todos los experimentos configuramos una frecuencia de muestreo a 1000 Hz y BaudRate de 115200. El porquÃ© del primer parÃ¡metro se basa en las siguientes 2 ideas:
+\end_layout
+
+\begin_layout Itemize
+Las frecuencias significativas en el EMG se encuentran entre los 0Hz y los 500Hz, siendo esta Ãºltima una opciÃ³n tambiÃ©n para configurar y evitar Aliasing. 
+\end_layout
+
+\begin_layout Itemize
+Si se quieren buenos resultados en la prÃ³tesis, la respuesta como aplicaciÃ³n de ingenierÃ­a debe ser menor a los 300ms, por lo que haciendo cÃ¡lculos unas 250 muestras serÃ­an suficientes para extraer patrones. 
+\end_layout
+
+\begin_layout Standard
+AÃ±adir que aunque buscamos buenos resultados con 250 muestras, es recomendable en las mediciones capturar muchas mÃ¡s para tener de sobra durante los anÃ¡lisis.
+\begin_inset Newline newline
+\end_inset
+
+ Para las mediciones finales, se creÃ³ una herramienta Software en Python que se encarga de conectarse al Arduino, sincronizarse con Ã©l, leer las muestras de los 2 canales y exportarlas a CSV. A parte de estos comportamientos, tambiÃ©n ofrece un menÃº simple por comandos en el que se puede gestionar el tipo de mediciÃ³n que estamos haciendo, llevar la cuenta de las mismas, plottear el resultado e incluso interaccionar con el usuario mediante un sonido para indicarle cuando debe realizar el movimiento.
+\end_layout
+
+\begin_layout Standard
+Una vez tenemos todo configurado podemos pasar a relizar las primeras mediciones, empezaremos entonces con los siguientes 3 estados:
+\end_layout
+
+\begin_layout Itemize
+FlexiÃ³n de muÃ±eca. 
+\end_layout
+
+\begin_layout Itemize
+ExtensiÃ³n de muÃ±eca. 
+\end_layout
+
+\begin_layout Itemize
+Reposo. 
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float figure
+placement !h
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Tabular 
+<lyxtabular version="3" rows="2" columns="2">
+<features rotate="0" tabularvalignment="middle" tabularwidth="0pt">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{subfigure}[c]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+0.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+textwidth
+\end_layout
+
+\end_inset
+
+, scale=0.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename imaxes/flexion.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{subfigure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+begin{subfigure}[c]
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+0.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+textwidth
+\end_layout
+
+\end_inset
+
+, scale=0.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename imaxes/extension.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+end{subfigure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ActionButton
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" usebox="none">
+\begin_inset Text
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Como se puede ver a simple vista podemos apreciar una diferencia notable entre los 3 movimientos. La lÃ­nea de plot azul se corresponde con el canal 1 y el mÃºsculo
+\end_layout
+
+\end_body
+\end_document

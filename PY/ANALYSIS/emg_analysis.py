@@ -125,11 +125,11 @@ def main():
             #ax.set_title("CH2:")
             #plt.stem(n, ch2)
 
-            #feature_name = 'Mean'
-            #feature1 = np.sqrt(np.mean(ch1))
-            #feature2 = np.sqrt(np.mean(ch2))
-            #print("Mean FROM CHANNEL 1: "+ str(feature1))
-            #print("Mean FROM CHANNEL 2: "+ str(feature2))
+            feature_name = 'Mean'
+            feature1 = np.sqrt(np.mean(ch1))
+            feature2 = np.sqrt(np.mean(ch2))
+            print("Mean FROM CHANNEL 1: "+ str(feature1))
+            print("Mean FROM CHANNEL 2: "+ str(feature2))
 
             #feature_name = 'RMS'
             #feature1 = np.sqrt(np.mean(ch1**2))
