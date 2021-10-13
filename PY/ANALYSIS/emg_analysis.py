@@ -89,9 +89,9 @@ def plot_fft(file_name, ch1, ch2):
 freq = 1000 
 n = np.arange(1, 1001)
  
-def main():
+def analysis(dire):
     # Signal features in time domain
-    dire = r'D:\PROYECTO_MANO_FPGA\GIT\PY\ANALYSIS\data_analysis'
+    #dire = r'D:\PROYECTO_MANO_FPGA\GIT\PY\ANALYSIS\data_analysis'
 
     for entry in os.scandir(dire):
         if (entry.is_file()):
@@ -125,17 +125,17 @@ def main():
             #ax.set_title("CH2:")
             #plt.stem(n, ch2)
 
-            feature_name = 'Mean'
-            feature1 = np.sqrt(np.mean(ch1))
-            feature2 = np.sqrt(np.mean(ch2))
-            print("Mean FROM CHANNEL 1: "+ str(feature1))
-            print("Mean FROM CHANNEL 2: "+ str(feature2))
+            #feature_name = 'Mean'
+            #feature1 = np.sqrt(np.mean(ch1))
+            #feature2 = np.sqrt(np.mean(ch2))
+            #print("Mean FROM CHANNEL 1: "+ str(feature1))
+            #print("Mean FROM CHANNEL 2: "+ str(feature2))
 
-            #feature_name = 'RMS'
-            #feature1 = np.sqrt(np.mean(ch1**2))
-            #feature2 = np.sqrt(np.mean(ch2**2))
-            #print("RMS FROM CHANNEL 1: "+ str(feature1))
-            #print("RMS FROM CHANNEL 2: "+ str(feature2))
+            feature_name = 'RMS'
+            feature1 = np.sqrt(np.mean(ch1**2))
+            feature2 = np.sqrt(np.mean(ch2**2))
+            print("RMS FROM CHANNEL 1: "+ str(feature1))
+            print("RMS FROM CHANNEL 2: "+ str(feature2))
 
             plt.figure(2)
             plt.scatter(feature1, feature2, c=color)
@@ -145,6 +145,3 @@ def main():
 
             #plot_fft(entry.name, ch1, ch2)
     plt.show()
-
-if __name__ == "__main__":
-    main()

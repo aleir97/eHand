@@ -6,7 +6,9 @@ class ModalTimerOperator(bpy.types.Operator):
     """Operator which runs its self from a timer"""
     bl_idname = "wm.modal_timer_operator"
     bl_label = "Modal Timer Operator"
-    
+    state = ''
+    angle_rep = 0
+     
     _timer = None
 
     def modal(self, context, event):
@@ -22,30 +24,45 @@ class ModalTimerOperator(bpy.types.Operator):
             
             f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\PY\\3D\\com.txt", "r")            
             line = f.readline()
+            #print(line)
+            #print(self.state)
             
-            
-            if line == 'FLEX':
+           
+            if (line == 'EXT\n' and self.state != 'EXT') :
+                self.state = 'EXT'
                 angle = 100
+                self.angle_rep = -100
                 bone.rotation_euler.rotate_axis(axis, radians(angle))
                 bpy.ops.object.mode_set(mode='OBJECT')
-
+                
                 #insert a keyframe
                 bone.keyframe_insert(data_path="rotation_euler" ,frame=1)
             
-            elif line == 'STOP':
-                angle = -100
-                bone.rotation_euler.rotate_axis(axis, radians(angle))
+            elif (line == 'REP\n' and self.state != 'REP'):
+                self.state = 'REP'
+                
+                bone.rotation_euler.rotate_axis(axis, radians(self.angle_rep))
                 bpy.ops.object.mode_set(mode='OBJECT')
 
                 #insert a keyframe
                 bone.keyframe_insert(data_path="rotation_euler" ,frame=1)  
             
-                        
+            elif (line == 'FLEX\n'  and self.state != 'FLEX'):
+                self.state = 'FLEX'
+                angle = -100
+                self.angle_rep = 100
+                
+                bone.rotation_euler.rotate_axis(axis, radians(angle))
+                bpy.ops.object.mode_set(mode='OBJECT')
+
+                #insert a keyframe
+                bone.keyframe_insert(data_path="rotation_euler" ,frame=1)    
+                                                    
         return {'PASS_THROUGH'}
 
     def execute(self, context):
         wm = context.window_manager
-        self._timer = wm.event_timer_add(30, window=context.window)
+        self._timer = wm.event_timer_add(1, window=context.window)
         wm.modal_handler_add(self)
         return {'RUNNING_MODAL'}
 
