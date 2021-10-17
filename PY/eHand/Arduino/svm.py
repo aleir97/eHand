@@ -198,6 +198,7 @@ def classification(used_samples):
 
                 hand_mvn = svm.predict(np.reshape([ch1rms, ch2rms], (-1, 2)))
                 print(hand_mvn)
+                # AÑADIR VARIABLE ESTADO PARA NO ANDAR ESCRIBIENDO LO MISMO TODO EL RATO
                 if hand_mvn[0] == 0:
                     state = 'REP'
                     f.seek(0)
