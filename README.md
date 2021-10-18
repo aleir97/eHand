@@ -11,11 +11,11 @@
 # eHand
 eHand se trata de un proyecto tecnológico, social y totalmente Open Source en el que se busca construir Hardware y Software para el análisis electromiográfico con el fin de controlar una prótesis electromecánica para gente amputada.
 Mediante sensores y electrodos se medirán los pocos milivoltios que se generan durante la actividad muscular y dichas señales eléctricas serán convertidas de Análogico a Digital por un Arduino, la información que se genere será enviada al PC via puerto serie en donde habrá un programa de Python escuchando.\
-Finalmente, mediante herramientas matemáticas para el procesado de señales en este programa, se extraerán patrones de clasificación sobre los diferentes movimientos deseados para con ellos controlar la prótesis.
+Finalmente, mediante herramientas matemáticas para el procesado de señales en este programa, se extraerán patrones de clasificación sobre los diferentes movimientos deseados para con ellos controlar la prótesis. Actualmente soporta algunos juegos web y un modelo 3d. 
 
 eHand is a technological, social and totally Open Source project that seeks to build Hardware and Software for electromyographic analysis in order to control an electromechanical prosthesis for amputee people.
 Using sensors and electrodes, the few millivolts that are generated during muscle activity will be measured. These electric signals are converted from Analog to Digital by an Arduino and the generated information will be sent to the PC via serial port where a Python program is listening.\
-Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system.
+Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system. Currently is supporting some web-games and a 3d model.
 
 <html>
   <head>
