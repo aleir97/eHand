@@ -37,7 +37,7 @@ Finally, using mathematical tools for signal processing, classification patterns
 **Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 <html>
   <head>
-    shorturl.at/hmyNR
+    https://shorturl.at/hmyNR
     <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
   </head>
 </html>
