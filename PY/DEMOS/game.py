@@ -15,8 +15,7 @@ def game(port, treshold):
             break
     
     if line == 'ini\r\n':
-        t = threading.currentThread()
-        while getattr(t, "do_run", True):
+        while True:
             A1 = []
             for i in range(sampleRate):
                 #print('MEASURE A1:', port.readline().decode('ascii'))
@@ -33,8 +32,7 @@ def game(port, treshold):
                 mouse.click('left')
 
             print(rms)
-        print('HOLAAA')
-        exit()    
+
     else:
         port.write(bytes(b's'))    
 

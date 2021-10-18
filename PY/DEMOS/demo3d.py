@@ -7,8 +7,6 @@ def model(port, treshold):
     state = ''
     sampleRate = 256
 
-   
-
     # Send the signal sync to arduino
     port.write(bytes(b'ini'))
     
@@ -19,8 +17,8 @@ def model(port, treshold):
             break
     
     if line == 'ini\r\n':
-        t = threading.currentThread()
-        while getattr(t, "do_run", True):
+        while True:
+
             A1 = []
             for i in range(sampleRate):
                 #print('MEASURE A1:', port.readline().decode('ascii'))
@@ -42,7 +40,7 @@ def model(port, treshold):
             elif (rms < treshold and state != 'STOP'):
                 state = 'STOP'
                 f.seek(0)
-                f.write('STOP\n')
+                f.write('REP\n')
                 f.truncate()
                 time.sleep(0.25)
 

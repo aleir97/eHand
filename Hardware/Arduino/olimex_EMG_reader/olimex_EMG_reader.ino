@@ -1,7 +1,6 @@
 #include "EMGFilters.h"
 
 // If you wanna graph both signals in real time.    
-#define DEBUG 0
 #define EMG_CH1 0   
 
 #define samplerate 1000; // Hz
@@ -53,10 +52,10 @@ void loop() {
           value1 = analogRead(EMG_CH1);
           DataFiltered1 = myFilter1.update(value1);
           DataFiltered1 = abs(DataFiltered1);
-          //envlope1 = DataFiltered1 * DataFiltered1 ;
+          //DataFiltered1 = DataFiltered1 * DataFiltered1 ;
           
           Serial.println(DataFiltered1);         
-          Serial.println(0);      
+          Serial.println("0");      
             
           time = time + tpersample;
         }

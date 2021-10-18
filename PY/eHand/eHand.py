@@ -13,14 +13,41 @@ from demo3d import model
 import serial
 import PySimpleGUI as sg
 import threading 
+import ctypes
 
 class StoppableThread(threading.Thread):
-    """Thread class with a stop() method. The thread itself has to check
-    regularly for the stopped() condition."""
+    def __init__(self, port, treshold, isgame):
+        threading.Thread.__init__(self)
+        self.port = port
+        self.treshold = treshold
+        self.isgame = isgame
 
-    def __init__(self,  *args, **kwargs):
-        super(StoppableThread, self).__init__(*args, **kwargs)
-        self.do_run = True
+    def run(self):
+        # target function of the thread class
+        try:
+            if self.isgame:
+                game(self.port, self.treshold)
+            else:
+                model(self.port, self.treshold)    
+        finally:
+            print('ended')
+          
+    def get_id(self):
+        # returns id of the respective thread
+        if hasattr(self, '_thread_id'):
+            return self._thread_id
+        for id, thread in threading._active.items():
+            if thread is self:
+                return id
+  
+    def raise_exception(self):
+        thread_id = self.get_id()
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id,
+              ctypes.py_object(SystemExit))
+        if res > 1:
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 0)
+            print('Exception raise failure')
+
 
 def main():
     # Serial port connection
@@ -51,21 +78,23 @@ def main():
         if event == "PLAY!":
             treshold = int(values['treshold'])
 
-            th = StoppableThread(target=game, args=(port,treshold,))
+            th = StoppableThread(port, treshold, True)
             th.start()
+
+            #th = StoppableThread(target=game, args=(port,treshold,))
+            #th.start()
 
         if event == "CONNECT 3D!":
             treshold = int(values['treshold'])
 
-            th = StoppableThread(target=model, args=(port,treshold,))
+            th = StoppableThread(port, treshold, False)
             th.start()
-
+            
         if event ==  "STOP!":
             if th != None:
                 port.write(bytes(b's'))    
-                th.do_run = False
-                th.join(1)
-                print(th.is_alive())
+                th.raise_exception()
+                th.join()
 
         # To close the window
         elif event == "EXIT": 
