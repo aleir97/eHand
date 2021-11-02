@@ -3,7 +3,7 @@ import time
 import threading 
 
 def model(port, treshold):
-    f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\PY\\3D\\com.txt", "w")
+    f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\python\\3D\\com.txt", "w")
     state = ''
     sampleRate = 256
 
@@ -11,7 +11,7 @@ def model(port, treshold):
     port.write(bytes(b'ini'))
     
     # Receiving signal sync from arduino 
-    for i in range(10):
+    for i in range(20):
         line = port.readline().decode('ascii')
         if line == 'ini\r\n':
             break
@@ -33,7 +33,7 @@ def model(port, treshold):
             if(rms > treshold and state != 'EXT' ):
                 state = 'EXT'
                 f.seek(0)
-                f.write('EXT\n')
+                f.write('FIST\n')
                 f.truncate()
                 time.sleep(0.25)
 

@@ -6,6 +6,9 @@ from numpy.core.fromnumeric import mean
 import pandas as pd
 import os 
 
+import matplotlib.lines as mlines
+import matplotlib.transforms as mtransforms
+
 def butter_bandpass(fs, lowcut, highcut=None, order=None):
     if (highcut == None & order == None):
         fstop = lowcut / (0.5 * fs)
@@ -92,6 +95,11 @@ n = np.arange(1, 1001)
 def analysis(dire):
     # Signal features in time domain
     #dire = r'D:\PROYECTO_MANO_FPGA\GIT\PY\ANALYSIS\data_analysis'
+    treshold_rest = 0
+    treshold_flex = 0
+
+    rest_cont = 0
+    flex_cont = 0
 
     for entry in os.scandir(dire):
         if (entry.is_file()):
@@ -108,7 +116,7 @@ def analysis(dire):
             
             color = ''
             if "ext" in entry.name:
-                color = 'red'
+                color = 'yellow'
             elif 'rest'  in entry.name:
                 color= 'blue' 
             elif 'fist' in entry.name:
@@ -137,6 +145,14 @@ def analysis(dire):
             print("RMS FROM CHANNEL 1: "+ str(feature1))
             print("RMS FROM CHANNEL 2: "+ str(feature2))
 
+            if 'rest'  in entry.name:
+                treshold_rest += feature1
+                rest_cont += 1 
+            
+            elif 'flex' in entry.name:
+                treshold_flex += feature1
+                flex_cont += 1
+
             plt.figure(2)
             plt.scatter(feature1, feature2, c=color)
             plt.title('Linearly separable data from '+ feature_name)
@@ -144,4 +160,9 @@ def analysis(dire):
             plt.ylabel('ch2')
 
             #plot_fft(entry.name, ch1, ch2)
+    
+    treshold = (treshold_flex/flex_cont + treshold_rest/rest_cont) /2
+    print(treshold)
+    plt.scatter(treshold, 0, c='red')
+    
     plt.show()

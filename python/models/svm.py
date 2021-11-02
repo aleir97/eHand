@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
 import os 
-import sklearn as sk
 from sklearn.model_selection import train_test_split
 from sklearn import svm 
-from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
@@ -140,12 +138,6 @@ def svm_classifier():
     filename = './ehand.sav'
     pickle.dump(linear, open(filename, 'wb'))
 
-    
-    #if ((accuracy_lin >= accuracy_poly) and (accuracy_lin >= accuracy_rbf) and (accuracy_lin >= accuracy_sig)):
-    #return linear
-
-    #elif ((accuracy_poly >= accuracy_lin) and (accuracy_poly >= accuracy_rbf) and (accuracy_poly >= accuracy_sig)):
-    #    return poly
 
 def classification(used_samples):
     # Conexion con el arduino, lectura de used samples 
@@ -184,8 +176,6 @@ def classification(used_samples):
                 A1 = []
                 A2 = []
                 for i in range(used_samples):
-                    #print('MEASURE A1:', port.readline().decode('ascii'))
-                    #print('MEASURE A2:', port.readline().decode('ascii'))
                     A1.append(port.readline().decode('ascii'))
                     A2.append(port.readline().decode('ascii'))
                     
@@ -198,6 +188,7 @@ def classification(used_samples):
 
                 hand_mvn = svm.predict(np.reshape([ch1rms, ch2rms], (-1, 2)))
                 print(hand_mvn)
+
                 # AÑADIR VARIABLE ESTADO PARA NO ANDAR ESCRIBIENDO LO MISMO TODO EL RATO
                 if hand_mvn[0] == 0:
                     state = 'REP'

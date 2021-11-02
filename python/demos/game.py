@@ -1,15 +1,17 @@
 import numpy as np
 import mouse
-import threading 
+import os
 
 def game(port, treshold):
-   
+    
+    os.system("start \"\" https://www.minijuegos.com/juego/the-sniper-code")
+
     sampleRate = 256    
     # Send the signal sync to arduino
     port.write(bytes(b'ini'))
     
     # Receiving signal sync from arduino 
-    for i in range(10):
+    for i in range(20):
         line = port.readline().decode('ascii')
         if line == 'ini\r\n':
             break

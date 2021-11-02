@@ -21,7 +21,7 @@ unsigned long timeStamp;
 
 void setup() {   
   Serial.begin(115200);
-   
+    
   //Inicializamos el filtro
   myFilter1.init(sampleRate, humFreq, true, true, true);
 
@@ -32,17 +32,17 @@ void loop() {
   int value1 = 0, envlope1= 0, DataFiltered1= 0;
   
   digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
+  delay(500);
   digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
+  delay(500);
   
   if (Serial.available()){
     if (Serial.readString() == "ini"){
       digitalWrite(LED_BUILTIN, HIGH);
   
-      // Python Sync
-      Serial.read();
-      Serial.println("ini");    
+      // Python Sync  
+      Serial.println("ini");
+      //Serial.read();    
     
       while(!Serial.available()){    
         Serial.read();

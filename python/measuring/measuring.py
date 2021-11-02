@@ -1,13 +1,12 @@
 import winsound
 import numpy as np
-import time
 import pandas as pd
 import matplotlib.pyplot as plt 
 import os
 from datetime import datetime
 
 date = datetime.today().strftime('%d-%Y-%m')
-measure_dir =  r'D:\PROYECTO_MANO_FPGA\GIT\MEASURES'+ '\\'+ date
+measure_dir =  r'D:\PROYECTO_MANO_FPGA\GIT\measures'+ '\\'+ date
 
 if (os.path.isdir(measure_dir) == False):
     os.mkdir(measure_dir)
@@ -38,8 +37,7 @@ def plot_measures(n, A1, A2):
     plt.plot(n, A2)
     plt.show()
 
-def make_measures(namefl,port, sampleRate):
-    med = 0
+def make_measures(namefl,port, sampleRate, med):
     med_type = ''
     n = np.arange(1, sampleRate+1)
 
@@ -50,15 +48,14 @@ def make_measures(namefl,port, sampleRate):
     
     A1 = []
     A2 = []
-    med += 1
     
     make_sound()
 
     # Send the signal sync to arduino
     port.write(bytes(b'ini'))
-
+    
     # Receiving signal sync from arduino 
-    for i in range(100):
+    for i in range(20):
         line = port.readline().decode('ascii')
         if line == 'ini\r\n':
             break
