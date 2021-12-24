@@ -1,7 +1,7 @@
 #include <string.h>
 
 // If you wanna graph both signals in real time.    
-#define DEBUG 0
+#define DEBUG 1
 
 #define EMG_CH1 0
 #define EMG_CH2 1

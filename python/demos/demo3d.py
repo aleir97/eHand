@@ -30,8 +30,8 @@ def model(port, treshold):
             rms = int (np.round(np.sqrt(np.mean(A1**2))))
             #rms = np.mean(A1)
 
-            if(rms > treshold and state != 'EXT' ):
-                state = 'EXT'
+            if(rms > treshold and state != 'FIST' ):
+                state = 'FIST'
                 f.seek(0)
                 f.write('FIST\n')
                 f.truncate()

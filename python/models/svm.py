@@ -9,11 +9,12 @@ from sklearn.model_selection import cross_val_score
 import serial
 import time
 import pickle
+import keyboard
 
-dataSet_path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\eHand\Arduino\\'
+dataSet_path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models'
 
 def generate_dataset(samples):
-    dataSet_dire = dataSet_path+ 'dataset'
+    dataSet_dire = dataSet_path+ '\\dataset'
     ind =-1
     for entry in os.scandir(dataSet_dire):
         if (entry.is_file()):
@@ -51,11 +52,11 @@ def generate_dataset(samples):
                 df2 = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [0]) 
                 df = df.append(df2, ignore_index= True)
 
-    path = r'D:\PROYECTO_MANO_FPGA\GIT\PY\eHand\\'+ 'dataSet'+ '.csv' 
+    path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models\\'+ 'dataSet'+ '.csv' 
     df.to_csv(path, index = False, header=True)            
    
 def svm_classifier():
-    data_path = dataSet_path+ 'dataSet.csv'
+    data_path = dataSet_path+ '\\dataSet.csv'
     dataSet = pd.read_csv(data_path)
 
     data = np.dstack((dataSet["CH1"].to_numpy(), dataSet["CH2"].to_numpy()))
@@ -63,30 +64,34 @@ def svm_classifier():
 
     targets = dataSet['class'].to_numpy()
 
-    accuracy_lin, accuracy_poly, accuracy_rbf, accuracy_sig = 0, 0, 0 ,0   
+    #accuracy_lin, accuracy_poly, accuracy_rbf, accuracy_sig = 0, 0, 0 ,0   
 
     # Mean calculations for score
-    for i in range(1,11):
-        X_train, X_test, y_train, y_test= train_test_split(data, targets, test_size=0.3, random_state=109)
+    #for i in range(1,11):
+    
+    #linear = svm.SVC(kernel='linear', C=1, decision_function_shape='ovo')
+    #rbf = svm.SVC(kernel='rbf', gamma=1, C=1, decision_function_shape='ovo')
+    #poly = svm.SVC(kernel='poly', degree=3, C=1, decision_function_shape='ovo')
+    #sig = svm.SVC(kernel='sigmoid', C=1, decision_function_shape='ovo')
 
-        linear = svm.SVC(kernel='linear', C=1, decision_function_shape='ovo').fit(X_train, y_train)
-        rbf = svm.SVC(kernel='rbf', gamma=1, C=1, decision_function_shape='ovo').fit(X_train, y_train)
-        poly = svm.SVC(kernel='poly', degree=3, C=1, decision_function_shape='ovo').fit(X_train, y_train)
-        sig = svm.SVC(kernel='sigmoid', C=1, decision_function_shape='ovo').fit(X_train, y_train)
+    # Retrieve the accuracy and print it for all 4 kernel functions 
+    #accuracy_lin += linear.score(X_test, y_test)
+    #accuracy_poly += poly.score(X_test, y_test)
+    #accuracy_rbf += rbf.score(X_test, y_test)
+    #accuracy_sig += sig.score(X_test, y_test)
 
-        # Retrieve the accuracy and print it for all 4 kernel functions 
-        accuracy_lin += linear.score(X_test, y_test)
-        accuracy_poly += poly.score(X_test, y_test)
-        accuracy_rbf += rbf.score(X_test, y_test)
-        accuracy_sig += sig.score(X_test, y_test)
+    #accuracy_lin, accuracy_poly, accuracy_rbf, accuracy_sig = accuracy_lin/10, accuracy_poly/10, accuracy_rbf/10, accuracy_sig/10 
+    #print("\n\n****************************************")
+    #print("RESULTS FROM SVM CLASSIFICATION")
+    #print("Accuracy Linear Kernel:", accuracy_lin)
+    #print("Accuracy Polynomial Kernel:", accuracy_poly)
+    #print("Accuracy Radial Basis Kernel:", accuracy_rbf)
+    #print("Accuracy Sigmoid Kernel:", accuracy_sig)
 
-    accuracy_lin, accuracy_poly, accuracy_rbf, accuracy_sig = accuracy_lin/10, accuracy_poly/10, accuracy_rbf/10, accuracy_sig/10 
-    print("\n\n****************************************")
-    print("RESULTS FROM SVM CLASSIFICATION")
-    print("Accuracy Linear Kernel:", accuracy_lin)
-    print("Accuracy Polynomial Kernel:", accuracy_poly)
-    print("Accuracy Radial Basis Kernel:", accuracy_rbf)
-    print("Accuracy Sigmoid Kernel:", accuracy_sig)
+    linear = svm.SVC(kernel='linear', C=1, decision_function_shape='ovo')
+    rbf = svm.SVC(kernel='rbf', gamma=1, C=1, decision_function_shape='ovo')
+    poly = svm.SVC(kernel='poly', degree=3, C=1, decision_function_shape='ovo')
+    sig = svm.SVC(kernel='sigmoid', C=1, decision_function_shape='ovo')
 
     # k - Fold validation of linear model
     X=  dataSet.iloc[:,:-1]
@@ -101,6 +106,29 @@ def svm_classifier():
     # report performance
     print('\n k - Fold Accuracy of linear model: %.3f (%.3f)' % (np.mean(scores), np.std(scores)))
 
+    scores = cross_val_score(poly, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+    
+    # report performance
+    print('\n k - Fold Accuracy of poly model: %.3f (%.3f)' % (np.mean(scores), np.std(scores)))
+
+    scores = cross_val_score(rbf, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+    
+    # report performance
+    print('\n k - Fold Accuracy of rbf model: %.3f (%.3f)' % (np.mean(scores), np.std(scores)))
+
+    scores = cross_val_score(sig, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+    
+    # report performance
+    print('\n k - Fold Accuracy of sig model: %.3f (%.3f)' % (np.mean(scores), np.std(scores)))
+
+
+    #X_train, X_test, y_train, y_test= train_test_split(data, targets, test_size=0.3, random_state=109)
+    
+    linear = svm.SVC(kernel='linear', C=1, decision_function_shape='ovo').fit(X, y)
+    rbf = svm.SVC(kernel='rbf', gamma=1, C=1, decision_function_shape='ovo').fit(X, y)
+    poly = svm.SVC(kernel='poly', degree=3, C=1, decision_function_shape='ovo').fit(X, y)
+    sig = svm.SVC(kernel='sigmoid', C=1, decision_function_shape='ovo').fit(X, y)
+
     # Print model response
     # Stepsize in the mesh, it alters the accuracy of the plotprint
     # to better understand it, just play with the value, change it and print it
@@ -111,11 +139,11 @@ def svm_classifier():
     y_min, y_max = data[:, 1].min() - 1, data[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h),np.arange(y_min, y_max, h))
     
-    #titles = ['Linear kernel','Polynomial kernel','RBF kernel','Sigmoid kernel']
-    titles = ['Linear kernel', 'Polynomial kernel']
+    titles = ['Linear kernel','Polynomial kernel','RBF kernel','Sigmoid kernel']
+    #titles = ['Linear kernel', 'Polynomial kernel']
     
-    #for i, clf in enumerate((linear, poly, rbf, sig)):
-    for i, clf in enumerate((linear, poly)):    
+    for i, clf in enumerate((linear, poly, rbf, sig)):
+    #for i, clf in enumerate((linear, poly)):    
         plt.subplot(2, 2, i + 1)
         plt.subplots_adjust(wspace=0.4, hspace=0.4)    
     
@@ -125,8 +153,8 @@ def svm_classifier():
         
         plt.contourf(xx, yy, Z, cmap=plt.cm.PuBuGn, alpha=0.7)    # Plot also the training points
         plt.scatter(data[:, 0], data[:, 1], c=targets, cmap=plt.cm.PuBuGn, edgecolors='grey')    
-        plt.xlabel('Sepal length')
-        plt.ylabel('Sepal width')
+        plt.xlabel('RMS on Ch1')
+        plt.ylabel('RMS on Ch2')
         plt.xlim(xx.min(), xx.max())
         plt.ylim(yy.min(), yy.max())
         plt.xticks(())
@@ -145,7 +173,7 @@ def classification(used_samples):
     # sacar RMS y usar valores para la clasificacion
     # mapear tecla -> modelo 3D o juego
     
-    f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\PY\\3D\\com.txt", "w")
+    f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\python\\3D\\com.txt", "w")
     state = ''
 
     filename = './ehand.sav'
@@ -188,25 +216,38 @@ def classification(used_samples):
 
                 hand_mvn = svm.predict(np.reshape([ch1rms, ch2rms], (-1, 2)))
                 print(hand_mvn)
-
-                # AÑADIR VARIABLE ESTADO PARA NO ANDAR ESCRIBIENDO LO MISMO TODO EL RATO
-                if hand_mvn[0] == 0:
+              
+                if (hand_mvn[0] == 0 and state != 'REP'):
+                    
+                    keyboard.release("right")
+                    keyboard.release("left")
+                    keyboard.release("z")
+                    
                     state = 'REP'
-                    f.seek(0)
-                    f.write('REP\n')
-                    f.truncate()
+                    #f.seek(0)
+                    #f.write('REP\n')
+                    #f.truncate()
 
-                elif hand_mvn[0] == 1:
+                elif (hand_mvn[0] == 1 and state != 'FLEX'):
+                    keyboard.press("right")
                     state = 'FLEX'
-                    f.seek(0)
-                    f.write('FLEX\n')
-                    f.truncate()
+                    #f.seek(0)
+                    #f.write('FLEX\n')
+                    #f.truncate()
                      
-                elif hand_mvn[0] == 2:
+                elif (hand_mvn[0] == 2  and state != 'EXT') :
+                    keyboard.press("left")
                     state = 'EXT'
-                    f.seek(0)
-                    f.write('EXT\n')
-                    f.truncate()
+                    #f.seek(0)
+                    #f.write('EXT\n')
+                    #f.truncate()
+
+                elif (hand_mvn[0] == 3  and state != 'FIST') :
+                    keyboard.press("z")
+                    state = 'FIST'
+                    #f.seek(0)
+                    #f.write('FIST\n')
+                    #f.truncate()
 
                 time.sleep(0.10)
         else:
@@ -215,8 +256,8 @@ def classification(used_samples):
     return 0
 
 def main():
-    used_samples = 256
-    generate_dataset(used_samples)
+    used_samples = 250
+    #generate_dataset(used_samples)
     
     #svm_classifier()
     

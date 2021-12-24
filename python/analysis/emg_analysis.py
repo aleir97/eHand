@@ -115,14 +115,27 @@ def analysis(dire):
             #ch2 = sg.lfilter(b, a, ch2)
             
             color = ''
+            marker = ''
+            label = ''
             if "ext" in entry.name:
                 color = 'yellow'
+                marker = 'o'
+                label = 'Extension'
+
             elif 'rest'  in entry.name:
                 color= 'blue' 
+                marker = '8'
+                label = 'Reposo'
+
             elif 'fist' in entry.name:
                 color= 'black'
+                marker = 'p'
+                label = 'Cierre de puño'
+
             elif 'flex' in entry.name:
                 color = 'coral'
+                marker = 's'
+                label = 'Flexion'
 
             #plt.figure(1)
             #ax = plt.subplot(211)
@@ -153,16 +166,34 @@ def analysis(dire):
                 treshold_flex += feature1
                 flex_cont += 1
 
+            
             plt.figure(2)
-            plt.scatter(feature1, feature2, c=color)
+            
+
+            if '7'  in entry.name:
+                plt.scatter(feature1, feature2, c=color, marker=marker, label=label)
+
+            else:
+               plt.scatter(feature1, feature2, c=color, marker=marker)
+
+         
             plt.title('Linearly separable data from '+ feature_name)
-            plt.xlabel('ch1')
-            plt.ylabel('ch2')
+            plt.xlabel('RMS at CH1')
+            plt.ylabel('RMS at CH2')
 
             #plot_fft(entry.name, ch1, ch2)
     
     treshold = (treshold_flex/flex_cont + treshold_rest/rest_cont) /2
     print(treshold)
-    plt.scatter(treshold, 0, c='red')
     
+    plt.axvline(treshold, color='red')
+    
+    plt.legend()
     plt.show()
+
+def main():
+    dire = r'D:\\PROYECTO_MANO_FPGA\\GIT\\measures\\25-2021-11'
+    analysis(dire)
+
+if __name__ == "__main__":
+    main()

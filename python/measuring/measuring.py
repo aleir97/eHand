@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import os
 from datetime import datetime
+import time
+
 
 date = datetime.today().strftime('%d-%Y-%m')
 measure_dir =  r'D:\PROYECTO_MANO_FPGA\GIT\measures'+ '\\'+ date
@@ -55,7 +57,8 @@ def make_measures(namefl,port, sampleRate, med):
     port.write(bytes(b'ini'))
     
     # Receiving signal sync from arduino 
-    for i in range(20):
+    for i in range(50):
+        time.sleep(0.005)
         line = port.readline().decode('ascii')
         if line == 'ini\r\n':
             break
