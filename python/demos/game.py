@@ -1,17 +1,18 @@
 import numpy as np
 import mouse
 import os
+import time
 
 def game(port, treshold):
-    
     os.system("start \"\" https://www.minijuegos.com/juego/the-sniper-code")
-
     sampleRate = 256    
+
     # Send the signal sync to arduino
     port.write(bytes(b'ini'))
     
     # Receiving signal sync from arduino 
-    for i in range(20):
+    for i in range(50):
+        time.sleep(0.005)
         line = port.readline().decode('ascii')
         if line == 'ini\r\n':
             break
@@ -25,10 +26,9 @@ def game(port, treshold):
                 A1.append(port.readline().decode('ascii'))
                 port.readline()
 
-            A1=np.fromiter(map(int, A1), dtype=int) 
+            A1 = np.fromiter(map(int, A1), dtype=int) 
             
             rms = int (np.round(np.sqrt(np.mean(A1**2))))
-            #mean = np.mean(A1)
 
             if(rms > treshold ):
                 mouse.click('left')

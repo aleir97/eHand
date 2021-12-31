@@ -39,7 +39,7 @@ def plot_measures(n, A1, A2):
     plt.plot(n, A2)
     plt.show()
 
-def make_measures(namefl,port, sampleRate, med):
+def make_measures(namefl, port, sampleRate, med):
     med_type = ''
     n = np.arange(1, sampleRate+1)
 

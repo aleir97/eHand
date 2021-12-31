@@ -192,7 +192,7 @@ def analysis(dire):
     plt.show()
 
 def main():
-    dire = r'D:\\PROYECTO_MANO_FPGA\\GIT\\measures\\25-2021-11'
+    dire = r'D:\\PROYECTO_MANO_FPGA\\GIT\\measures\\25-2021-11-Alberto-Umbral'
     analysis(dire)
 
 if __name__ == "__main__":
