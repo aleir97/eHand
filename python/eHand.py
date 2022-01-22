@@ -10,6 +10,7 @@ import time
 
 
 def serial_connection():
+	#TODO: Que te deje elegir la conexion mediante una lista de dispositivos
     # Serial port connection
 	found = False
 	ports = list(serial.tools.list_ports.grep('.*Arduino.*', include_links=False))
@@ -17,7 +18,7 @@ def serial_connection():
 	if len(ports) != 0:
 		found = True	
 	else:
-		sg.popup_error('Connection not found, going offline')
+		sg.popup_error('\n\n       Connection not found, going offline       \n\n')
 		return False, None
 
 	if found == True:
@@ -26,15 +27,13 @@ def serial_connection():
 			return True, port 
 
 		except:
-			sg.popup_error('Error at the connection, going offline') 
+			sg.popup_error('\n\n       Error at the connection, going offline       \n\n') 
 			return False, None
 
 
 def offline_events(window, event, values):
-	if event == "-FOLDER-":
-		folder = values['-FOLDER-']  
-		if folder != '':
-			analysis(folder)
+	if event == 'ANALYZE':
+		ui_analysis()
         
 	# To close the window
 	elif (event == "EXIT" or event == sg.WIN_CLOSED): 
@@ -43,13 +42,12 @@ def offline_events(window, event, values):
 
 	else:
 		#TODO: interesante que el programa deje pasar de modo ofline a online
-		sg.popup_error('Connect a device and restart the program') 
+		sg.popup('\n\n       Connect a device and restart the program       \n\n') 
 
 			
 th = None
 med = 0
 p1 = None
-
 def online_events(window, event, values, port):
 	global 	th 
 	global	med
@@ -59,10 +57,8 @@ def online_events(window, event, values, port):
 		med += 1
 		make_measures(values['name_file'], port, 1000, med)
 
-	elif event == "-FOLDER-":
-		folder = values['-FOLDER-']  
-		if folder != '':
-			analysis(folder)
+	elif event == 'ANALYZE':
+		ui_analysis()
 
 	elif event == "REAL TIME PLOT": 
 		port.close()
@@ -110,20 +106,55 @@ def online_events(window, event, values, port):
 		window.close()
 		exit()
 
+def ui_analysis():
+	layout = [[sg.Text('File analysis:'), sg.In(enable_events=True, key='-FOLDER-', visible=False), sg.FilesBrowse('Add Files', target='-FOLDER-'),
+			   sg.Column([[sg.Checkbox('Mean', default=False, key='Mean')],
+              [sg.Checkbox('RMS',  default=False, key= 'RMS')],
+              [sg.Checkbox('Fourier Transform', default=False, key= 'FFT')]])],
+			  [sg.Button('Analyze', pad= (100, 10))],
+              [sg.Exit('Exit')]]	
+
+	window = sg.Window('Analysis', layout)
+
+	files = []
+	while True:
+		event, values = window.read()
+		
+		if event == '-FOLDER-':
+			# Meterle los valores de los checks
+			files = files + values['-FOLDER-'].split(';')			
+
+		elif event == 'Analyze':
+			if len(values['-FOLDER-']) == 0:
+				sg.popup('\n\n       Select some files       \n\n')
+			else:
+				analysis(files, [values['Mean'], values['RMS'], values['FFT']]) 
+				files = []
+
+		# To close the window
+		elif (event == 'Exit' or event == sg.WIN_CLOSED): 
+			break
+
+	window.close()	
+
+
+def ui_gen():
+    # Window configuration
+	sg.theme('DarkTeal9')
+	layout = [[sg.Text('Insert the name of the record file:')],
+            [sg.Input(key='name_file', size=(10,1)), sg.Button('MAKE MEASURE'), sg.Button('REAL TIME PLOT'),sg.Button('STOP THE PLOT!')],
+            [[sg.In(enable_events=True, key='-FOLDER-', visible=False), sg.Button('ANALYZE DATA', key='ANALYZE')]], 
+            [sg.Text("Treshold for the game or 3d Model:"), sg.Input(key='treshold',size=(10,1)), sg.Button('PLAY!'), sg.Button('CONNECT 3D!'), sg.Button('STOP!')],
+            [ sg.Exit('EXIT')]]
+
+	return sg.Window("eHand", layout)
+   
+
 def main():
 	online, port = serial_connection()		
 
-	#TODO: separar la generacion de UI como componente
-    # Window configuration
-	sg.theme('DarkTeal9')
-	layout = [[sg.Text("Insert the name of the record file:")],
-            [sg.Input(key='name_file', size=(10,1)), sg.Button("MAKE MEASURE"), sg.Button("REAL TIME PLOT"),sg.Button("STOP THE PLOT!")],
-            [[sg.In(enable_events=True, key='-FOLDER-', visible=False), sg.FolderBrowse("ANALYZE DATA", target='-FOLDER-')]], 
-            [sg.Text("Treshold for the game or 3d Model:"), sg.Input(key='treshold',size=(10,1)), sg.Button("PLAY!"), sg.Button("CONNECT 3D!"), sg.Button("STOP!")],
-            [ sg.Exit("EXIT")]]
+	window = ui_gen()	
 
-	window = sg.Window("eHand", layout)
-   
 	# Create an event loop
 	while True:
 		event, values = window.read()
