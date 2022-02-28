@@ -88,7 +88,7 @@ def plot_fft(file_name, ch1, ch2):
     ch1sigf = fft(ch2)
     plt.subplot(212)
     plt.plot(xf, 2.0/len(n) * np.abs(ch1sigf[0:len(n)//2]))
-	plt.grid()
+    plt.grid()
 
 
 def feature_calc(file_name, color, marker, label, feature_name, func, ch):

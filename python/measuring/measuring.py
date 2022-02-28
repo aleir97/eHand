@@ -67,8 +67,10 @@ def make_measures(namefl, port, sampleRate, med):
         for i in range(sampleRate):
             #print('MEASURE A1:', port.readline().decode('ascii'))
             #print('MEASURE A2:', port.readline().decode('ascii'))
-            A1.append(port.readline().decode('ascii'))
-            A2.append(port.readline().decode('ascii'))
+            val1 = port.readline().decode('ascii')
+            val2 = port.readline().decode('ascii')
+            A1.append(val1)
+            A2.append(val2)
 
     else:
         print('NO LEÍ EL INI :(')

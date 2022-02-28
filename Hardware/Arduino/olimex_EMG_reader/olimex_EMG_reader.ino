@@ -16,7 +16,7 @@ EMGFilters myFilter2;
 SAMPLE_FREQUENCY sampleRate = SAMPLE_FREQ_1000HZ;
 
 //Frecuencia de ruido producida por la alimentacion (depende del pais)
-NOTCH_FREQUENCY humFreq = NOTCH_FREQ_50HZ;
+NOTCH_FREQUENCY humFreq = NOTCH_FREQ_60HZ;
 
 unsigned long timeStamp;
 
@@ -24,8 +24,8 @@ void setup() {
   Serial.begin(115200);
     
   //Inicializamos el filtro
-  myFilter1.init(sampleRate, humFreq, true, true, true);
-  myFilter2.init(sampleRate, humFreq, true, true, true);
+  myFilter1.init(sampleRate, humFreq, true, false, true);
+  myFilter2.init(sampleRate, humFreq, true, false, true);
 
   pinMode(LED_BUILTIN, OUTPUT);
 }
@@ -53,18 +53,14 @@ void loop() {
           
           value1 = analogRead(EMG_CH1);
           DataFiltered1 = myFilter1.update(value1);
-          DataFiltered1 = abs(DataFiltered1);
-          //DataFiltered1 = DataFiltered1 * DataFiltered1 ;
+          //DataFiltered1 = abs(DataFiltered1);
 
           value2 = analogRead(EMG_CH2);
           DataFiltered2 = myFilter2.update(value2);
-          DataFiltered2 = abs(DataFiltered2);
+          //DataFiltered2 = abs(DataFiltered2);
           
-          //Serial.println(value1);
           Serial.println(DataFiltered1);         
-          Serial.println("0");
-          //Serial.println(value2);      
-          //Serial.println(DataFiltered2);  
+          Serial.println(DataFiltered2);
             
           time = time + tpersample;
         }
