@@ -19,7 +19,7 @@ Finally, using mathematical tools for signal processing, classification patterns
 
 <html>
   <head>
-    <img src="https://github.com/aleir97/eHand/blob/master/DOC/prostheses_general_architecture.png" high="300" width="500" class="center">
+    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/prostheses_general_architecture.png" high="300" width="500" class="center">
   </head>
 </html>
 
