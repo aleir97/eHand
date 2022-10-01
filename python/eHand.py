@@ -1,3 +1,22 @@
+'''
+    - Python eHand main program, user interface and module calls
+    
+	Copyright (C) 2021 Alejandro Iregui Valcarcel
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
 from measuring.measuring import *
 from analysis.emg_analysis import *
 from utils.StoppableThread import *
@@ -18,7 +37,7 @@ def serial_connection():
 	if len(ports) != 0:
 		found = True	
 	else:
-		sg.popup_error('\n\n       Connection not found, going offline       \n\n')
+		sg.popup_error('\n\n\t\t Connection not found, going offline \t\t\n\n')
 		return False, None
 
 	if found == True:
@@ -27,7 +46,7 @@ def serial_connection():
 			return True, port 
 
 		except:
-			sg.popup_error('\n\n       Error at the connection, going offline       \n\n') 
+			sg.popup_error('\n\n\t\t Error at the connection, going offline \t\t\n\n') 
 			return False, None
 
 
@@ -42,7 +61,7 @@ def offline_events(window, event, values):
 
 	else:
 		#TODO: interesante que el programa deje pasar de modo ofline a online
-		sg.popup('\n\n       Connect a device and restart the program       \n\n') 
+		sg.popup('\n\n\t\t Connect a device and restart the program \t\t\n\n') 
 
 			
 th = None

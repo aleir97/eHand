@@ -1,3 +1,22 @@
+'''
+    - Python module to synchronize between serial device and PC to acquire EMG samples
+    
+	Copyright (C) 2021 Alejandro Iregui Valcarcel
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
 import winsound
 import numpy as np
 import pandas as pd
@@ -8,7 +27,7 @@ import time
 
 
 date = datetime.today().strftime('%d-%Y-%m')
-measure_dir =  r'D:\PROYECTO_MANO_FPGA\GIT\measures'+ '\\'+ date
+measure_dir =  r"..\emg_measures"+ '\\'+ date
 
 if (os.path.isdir(measure_dir) == False):
     os.mkdir(measure_dir)

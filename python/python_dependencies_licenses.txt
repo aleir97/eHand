@@ -1,0 +1,17 @@
+
+	List of all third party depencies licenses used at eHand project
+		- PYTHON -> PSF LICENSE
+		- BLENDER LICENSE (bpy) -> GNU GPL v2+ 
+		- Python KB utility (keyboard) ->  MIT License
+		- Python Math utils (mathutils) -> GNU GPL v2+ (this can maybe be discarded by numpy)
+		- MatPlotLib (matplotlib) -> PSF LICENSE
+		- Mlxtend -> BSD 
+		- Python Mouse utility (mouse) -> MIT License
+		- Numpy -> Liberal BSD
+		- Pandas -> BSD 3
+		- PYserial -> BSD
+		- PYsimpleGUI -> GNU v3.0
+		- Scikit Learn -> BSD 3
+		- Scipy -> BSD 3
+		- Pytorch -> BSD
+

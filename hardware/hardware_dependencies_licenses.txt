@@ -1,0 +1,6 @@
+
+	
+	List of all third party depencies licenses used at eHand project
+		- Arduino IDE -> GPL.
+		- SoftwareSerial -> LGPL 2.1.h	
+		- EMGFilters -> BSD
