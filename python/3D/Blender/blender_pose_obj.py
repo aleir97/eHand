@@ -1,5 +1,5 @@
 '''
-    - Python script to modify a 3d object pose via Blender's API
+    - Python script to modify a 3d object's pose via Blender's API
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 

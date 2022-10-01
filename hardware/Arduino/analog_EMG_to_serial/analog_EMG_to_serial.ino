@@ -1,5 +1,3 @@
-#include <string.h>
-
 /*
     - Simple script to send samples from an analog port via Serial to a PC
     
@@ -18,6 +16,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+#include <string.h>
 
 // If you wanna graph both signals in real time.    
 #define DEBUG 1

@@ -1,5 +1,5 @@
 '''
-    - Python module for patter classification at EMG samples via neural networks
+    - Python module for pattern classification at EMG samples via neural networks
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 

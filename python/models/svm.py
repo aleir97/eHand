@@ -1,5 +1,5 @@
 '''
-    - Python module for patter classification at EMG samples via support vector machines
+    - Python module for pattern classification at EMG samples via support vector machines
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 

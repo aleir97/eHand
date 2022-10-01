@@ -1,5 +1,5 @@
 '''
-    - Python module to synchronize between serial device and PC to acquire EMG samples
+    - Python module to synchronize between serial device and PC to acquire and measure EMG samples
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 

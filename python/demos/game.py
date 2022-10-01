@@ -1,5 +1,5 @@
 '''
-    - Python control demo to interface the EMG and mouse left-click
+    - Python control demo to interface the EMG and system's mouse left-click
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 

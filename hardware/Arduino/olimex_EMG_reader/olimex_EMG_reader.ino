@@ -1,5 +1,5 @@
 /*
-    - Script to acquire and process EMG samples from the Olimex © 1997-2022 SHIELD-EKG-EMG board.
+    - Script to acquire and process EMG samples from the Olimex © 1997-2022 SHIELD-EKG-EMG board
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 
@@ -16,7 +16,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
 
 #include "EMGFilters.h"
 

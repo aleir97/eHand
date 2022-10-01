@@ -1,5 +1,5 @@
 '''
-    - Python module to plot information from a Serial device
+    - Python module to plot information from a serial device
     
 	Copyright (C) 2021 Alejandro Iregui Valcarcel
 
