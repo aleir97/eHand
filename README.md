@@ -28,17 +28,17 @@ Finalmente, mediante herramientas matemáticas para el procesado de señales, en
 Directory Structure
 ------
     .
-    ├── documentation       # Related information about the project, images and technical PDF's
-    ├── emg_data            # Database with EMG measurements used at analysis and processing
-    ├── hardware            # Hardware main modules for signal acquisition at different hw combinations
-        ├── arduino         # Arduino board core code
-    └── python              # System modules, high-level signal processing, UX and UI
-        ├── 3D         		# Blender scripts and 3d models 
-        ├── analysis        # Modules with digitial signal processing tools 
-        ├── measuring       # Interface class for hardware communication, EMG measure reading and formating
-        ├── models         	# Machine Learning modules used at pattern classification 
-        └── utils        	# Utils module
-    └── eHand.py            # eHand main program
+    ├── documentation    # Related information about the project, images and technical PDF's
+    ├── emg_data         # Database with EMG measurements used at analysis and processing
+    ├── hardware         # Hardware main modules for signal acquisition at different hw combinations
+        ├── arduino      # Arduino board core code
+    └── python           # System modules, high-level signal processing, UX and UI
+        ├── 3D           # Blender scripts and 3d models 
+        ├── analysis     # Modules with digitial signal processing tools 
+        ├── measuring    # Interface class for hardware communication, EMG measure reading and formating
+        ├── models      	# Machine Learning modules used at pattern classification 
+        └── utils        # Utils module
+    └── eHand.py         # eHand main program
 
 
 How to build and use
