@@ -4,7 +4,7 @@
 
 html>
   <head>
-    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo_.jpg" high="300" width="500" class="center">
+    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo.jpg" high="300" width="500" class="center">
 	<figcaption> Electromiography: Physiology, Engineering and Applications. </figcaption>
   </head>
 </html>
