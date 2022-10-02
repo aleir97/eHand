@@ -49,15 +49,14 @@ alternatives are presented. Feel free to use and test eHand at different platfor
 **Olimex SHIELD-EKG-EMG:**
 <html>
   <head>
-    <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
+    <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="150" width="400" onclick="">
   </head>
 </html>
 
 **Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 <html>
   <head>
-    https://shorturl.at/hmyNR
-    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
+    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="150" width="100" onclick="">
   </head>
 </html>
 
