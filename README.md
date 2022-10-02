@@ -56,7 +56,7 @@ alternatives are presented. Feel free to use and test eHand at different platfor
 **Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 <html>
   <head>
-    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="150" width="100" onclick="">
+    <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="150" width="400" onclick="">
   </head>
 </html>
 
