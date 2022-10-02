@@ -2,8 +2,12 @@
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
 
-![]("https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo.jpg")
-
+html>
+  <head>
+    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo_.jpg" high="300" width="500" class="center">
+	<figcaption> Electromiography: Physiology, Engineering and Applications. </figcaption>
+  </head>
+</html>
 
 # eHand
 eHand is a technological, social, and totally Open Source project. It was born with the main motivation of building hardware and software applied to the EMG analysis done at the control of an electromechanical prosthesis.
