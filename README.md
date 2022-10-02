@@ -46,15 +46,12 @@ How to build and use
 eHand needs some dedicated hardware like EMG sensors, electrodes and A/D conversor boards to run properly. Until now the software has been tested at Aliexpress and Olimex EMG sensors connected to an Arduino, nonetheless in the documentation
 alternatives are presented. Feel free to use and test eHand at different platforms.
  
-# Placas Electromiográficas
 **Olimex SHIELD-EKG-EMG:**
 <html>
   <head>
-  
     <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
   </head>
 </html>
-
 
 **Aliexpress Sensor de señal muscular, Sensor EMG para Arduino:**
 <html>
@@ -63,7 +60,6 @@ alternatives are presented. Feel free to use and test eHand at different platfor
     <img src="https://ae01.alicdn.com/kf/HTB1CWTKayzxK1RkSnaVq6xn9VXaA.jpg" high="300" width="500" onclick="">
   </head>
 </html>
-
 
 If this hardware requirements are fullfilled, you can load and test their core software found at the hardware directory. Moreover, some python dependencies need and can be installed with:
 
