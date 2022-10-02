@@ -34,7 +34,7 @@ Directory Structure
         ├── 3D           # Blender scripts and 3d models 
         ├── analysis     # Modules with digitial signal processing tools 
         ├── measuring    # Interface class for hardware communication, EMG measure reading and formating
-        ├── models      	# Machine Learning modules used at pattern classification 
+        ├── models       # Machine Learning modules used at pattern classification 
         └── utils        # Utils module
     └── eHand.py         # eHand main program
 
@@ -60,7 +60,7 @@ eHand needs some dedicated hardware like EMG sensors, electrodes, and A/D conver
 If these hardware requirements are fulfilled, you can load and test their core software found in the hardware directory. Moreover, some python dependencies need and can be installed with:
 
 ```console
-pip -install requirements.txt 
+pip -install -r ./python/requirements.txt 
 ```
 
 Now you can finally run the python main program eHand.py
