@@ -9,26 +9,48 @@
 
 
 # eHand
-eHand se trata de un proyecto tecnológico, social y totalmente Open Source en el que se busca construir Hardware y Software para el análisis electromiográfico con el fin de controlar una prótesis electromecánica para gente amputada.
-Mediante sensores y electrodos se medirán los pocos milivoltios que se generan durante la actividad muscular y dichas señales eléctricas serán convertidas de Análogico a Digital por un Arduino, la información que se genere será enviada al PC via puerto serie en donde habrá un programa de Python escuchando.\
-Finalmente, mediante herramientas matemáticas para el procesado de señales en este programa, se extraerán patrones de clasificación sobre los diferentes movimientos deseados para con ellos controlar la prótesis. Actualmente soporta algunos juegos web y un modelo 3d. 
+eHand is a technological, social, and totally Open Source project. It was born with the main motivation of building hardware and software applied to the EMG analysis done at the control of an electromechanical prosthesis.
+During muscle activity, the few millivolts generated that conform the EMG are measured by electrodes and sensors. These same signals will then be converted from Analog to Digital by an Arduino that transmits the information to the PC via serial port, where a Python program is listening and in charge of the general system activity.
+Finally, using mathematical tools for signal processing, eHand will extract classification patterns on the different desired movements to control any man-machine interface. Currently supports some web games and 3d models.
 
-eHand is a technological, social and totally Open Source project that seeks to build Hardware and Software for electromyographic analysis in order to control an electromechanical prosthesis for amputee people.
-Using sensors and electrodes, the few millivolts that are generated during muscle activity will be measured. These electric signals are converted from Analog to Digital by an Arduino and the generated information will be sent to the PC via serial port where a Python program is listening.\
-Finally, using mathematical tools for signal processing, classification patterns will be extracted on the different desired movements in order to control the end system. Currently is supporting some web-games and a 3d model.
+eHand se trata de un proyecto tecnológico, social y totalmente Open Source. Nació con la principal motivación de construir hardware y software aplicado al análisis EMG que se hace durante el control de una prótesis electro-mecánica.
+Mediante sensores y electrodos se medirán los pocos milivoltios que se generan durante la actividad muscular y que conforman el EMG. Estas mismas señales, serán luego convertidas de Análogico a Digital por un Arduino y la información que se genere será enviada al PC via puerto serie, en donde habrá un programa de Python escuchando, encargado de la lectura y procesamiento general del sistema.\
+Finalmente, mediante herramientas matemáticas para el procesado de señales, en este programa se extraerán patrones de clasificación sobre los diferentes movimientos deseados para con ellos controlar cualquier interfaz hombre-maquina. Actualmente soporta algunos juegos web y modelos 3d. 
+
 
 <html>
   <head>
     <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/prostheses_general_architecture.png" high="300" width="500" class="center">
+	<figcaption> Electromiography: Physiology, Engineering and Applications. </figcaption>
   </head>
 </html>
 
+Directory Structure
+------
+    .
+    ├── documentation       # Related information about the project, images and technical PDF's
+    ├── emg_data            # Database with EMG measurements used at analysis and processing
+    ├── hardware            # Hardware main modules for signal acquisition at different hw combinations
+        ├── arduino         # Arduino board core code
+    └── python              # System modules, high-level signal processing, UX and UI
+        ├── 3D         		# Blender scripts and 3d models 
+        ├── analysis        # Modules with digitial signal processing tools 
+        ├── measuring       # Interface class for hardware communication, EMG measure reading and formating
+        ├── models         	# Machine Learning modules used at pattern classification 
+        └── utils        	# Utils module
+    └── eHand.py            # eHand main program
 
+
+How to build and use
+------
+eHand needs some dedicated hardware like EMG sensors, electrodes and A/D conversor boards to run properly. Until now the software has been tested at Aliexpress and Olimex EMG sensors connected to an Arduino, nonetheless in the documentation
+alternatives are presented. Feel free to use and test eHand at different platforms.
+ 
 # Placas Electromiográficas
 **Olimex SHIELD-EKG-EMG:**
 <html>
   <head>
-    https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/open-source-hardware
+  
     <img src="https://www.olimex.com/Products/Duino/Shields/SHIELD-EKG-EMG/images/thumbs/310x230/SHIELD-EKG-EMG-01.jpg" high="300" width="500" onclick="">
   </head>
 </html>
@@ -43,9 +65,17 @@ Finally, using mathematical tools for signal processing, classification patterns
 </html>
 
 
-### Datos Adicionales
-    Si estás interesado en colaborar con el proyecto o simplemente tienes curiosidad, contáctame!
+If this hardware requirements are fullfilled, you can load and test their core software found at the hardware directory. Moreover, some python dependencies need and can be installed with:
+
+```console
+pip -install requirements.txt 
+```
+
+Now you can finally run the python main program eHand.py
+
+### About me
     If you are interested in collaborating or just curious about it, contact me!
+    Si estás interesado en colaborar con el proyecto o simplemente tienes curiosidad, contáctame!
     EMAIL: a.ireguiv@udc.es
     
 
