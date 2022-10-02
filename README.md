@@ -1,9 +1,9 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://www.linkedin.com/in/aireguivalcarcel/)
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
-<center>
+<head>
     <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo.jpg" high="300" width="800" class="center">
-  </center>
+  </head>
 </html>
 
 # eHand
