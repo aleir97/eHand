@@ -4,3 +4,4 @@
 		- Arduino IDE -> GPL.
 		- SoftwareSerial -> LGPL 2.1.h	
 		- EMGFilters -> BSD
+		
