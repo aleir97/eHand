@@ -2,7 +2,7 @@
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
 <center>
-    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo.jpg" high="300" width="500" class="center">
+    <img src="https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo.jpg" high="300" width="800" class="center">
   </center>
 </html>
 
