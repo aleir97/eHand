@@ -27,7 +27,7 @@ import time
 
 
 date = datetime.today().strftime('%d-%Y-%m')
-measure_dir =  r"..\emg_measures"+ '\\'+ date
+measure_dir =  r"..\emg_data"+ '\\'+ date
 
 if (os.path.isdir(measure_dir) == False):
     os.mkdir(measure_dir)
