@@ -2,7 +2,7 @@
 [![GitHub contributors](https://img.shields.io/badge/-contributors-blue)](https://github.com/aleir97/ehand/graphs/contributors/)
 
 
-![](https://1000marcas.net/wp-content/uploads/2019/12/UDC-emblema.jpg)
+![]("https://github.com/aleir97/eHand/blob/master/documentation/misce/udc_logo_.jpg")
 
 
 # eHand
