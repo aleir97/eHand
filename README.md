@@ -43,8 +43,7 @@ Directory Structure
 
 How to build and use
 ------
-eHand needs some dedicated hardware like EMG sensors, electrodes and A/D conversor boards to run properly. Until now the software has been tested at Aliexpress and Olimex EMG sensors connected to an Arduino, nonetheless in the documentation
-alternatives are presented. Feel free to use and test eHand at different platforms.
+eHand needs some dedicated hardware like EMG sensors, electrodes, and A/D converter boards to run correctly. The software so far has been tested at Aliexpress and Olimex EMG sensors connected to an Arduino. Nonetheless, in the documentation alternatives and different setups are presented. Feel free to use and try-out eHand on other platforms.
  
 **Olimex SHIELD-EKG-EMG:**
 <html>
@@ -60,7 +59,7 @@ alternatives are presented. Feel free to use and test eHand at different platfor
   </head>
 </html>
 
-If this hardware requirements are fullfilled, you can load and test their core software found at the hardware directory. Moreover, some python dependencies need and can be installed with:
+If these hardware requirements are fulfilled, you can load and test their core software found in the hardware directory. Moreover, some python dependencies need and can be installed with:
 
 ```console
 pip -install requirements.txt 
