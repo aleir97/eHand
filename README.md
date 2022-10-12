@@ -69,5 +69,6 @@ Now you can finally run the python main program eHand.py
     If you are interested in collaborating or just curious about it, contact me!
     Si estás interesado en colaborar con el proyecto o simplemente tienes curiosidad, contáctame!
     EMAIL: a.ireguiv@udc.es
+    Twitch.tv: https://www.twitch.tv/aleir97
     
 
