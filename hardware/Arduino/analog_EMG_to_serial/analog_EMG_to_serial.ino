@@ -45,8 +45,8 @@ void setup() {
 
 #ifdef DEBUG
 	Serial.println("CH1:, CH2:");
-	pinMode(LED_BUILTIN, OUTPUT);
 #endif
+	pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
