@@ -26,29 +26,17 @@ import serial.tools.list_ports
 import PySimpleGUI as sg
 from subprocess import Popen
 import time
+import com.arduino as arduino
 
 
-def serial_connection():
-	#TODO: Que te deje elegir la conexion mediante una lista de dispositivos
-    # Serial port connection
-	found = False
-	ports = list(serial.tools.list_ports.grep('.*Arduino.*', include_links=False))
+def connect():
+	online, port = arduino.serial_connection()
 
-	if len(ports) != 0:
-		found = True	
-	else:
-		sg.popup_error('\n\n\t\t Connection not found, going offline \t\t\n\n')
-		return False, None
+	if (not online):
+		sg.popup_error('\n\n Connection not found, going offline \t\t\n\n')
+		return online, None
 
-	if found == True:
-		try:
-			port = serial.Serial(ports[0][0], baudrate=115200, timeout=1) # Establish connection with arduino
-			return True, port 
-
-		except:
-			sg.popup_error('\n\n\t\t Error at the connection, going offline \t\t\n\n') 
-			return False, None
-
+	return online, port
 
 def offline_events(window, event, values):
 	if event == 'ANALYZE':
@@ -74,7 +62,7 @@ def online_events(window, event, values, port):
 
 	if event == "MAKE MEASURE":
 		med += 1
-		make_measures(values['name_file'], port, 1000, med)
+		make_measures(values['name_file']+str(med), port, 2, 1000)
 
 	elif event == 'ANALYZE':
 		ui_analysis()
@@ -170,7 +158,7 @@ def ui_gen():
    
 
 def main():
-	online, port = serial_connection()		
+	online, port = connect()		
 
 	window = ui_gen()	
 

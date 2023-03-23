@@ -18,12 +18,11 @@
 '''
 
 import winsound
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt 
 import os
 from datetime import datetime
-import time
+import com.arduino as arduino
 
 
 date = datetime.today().strftime('%d-%Y-%m')
@@ -47,62 +46,25 @@ def make_sound():
     duration = 2000  # Set Duration To 2000 ms == 2 second
     winsound.Beep(frequency, duration)
 
-def plot_measures(n, A1, A2):
-    plt.figure()
-    ax = plt.subplot(211)
-    ax.set_title("CH1:")
-    plt.plot(n, A1)
+def plot_measures(samp):
+	title = "CH{channel:d}:"
 
-    ax = plt.subplot(212)
-    ax.set_title("CH2:")
-    plt.plot(n, A2)
-    plt.show()
+	plt.figure()
+	ax = plt.subplot(samp.shape[0]*100+11)
 
-def make_measures(namefl, port, sampleRate, med):
-    med_type = ''
-    n = np.arange(1, sampleRate+1)
+	for i in range(samp.shape[0]):
+		ax = plt.subplot(210+i+1)
+		ax.set_title(title.format(channel=i+1))
+		plt.plot(samp[i])
 
-    med_type = namefl
+	plt.show()
 
-    if med_type == 'exit':
-        exit()
-    
-    A1 = []
-    A2 = []
-    
-    make_sound()
+def make_measures(name_fl, port, n_channels, n_samples):
+	make_sound()
 
-    # Send the signal sync to arduino
-    port.write(bytes(b'ini'))
-    
-    # Receiving signal sync from arduino 
-    for i in range(50):
-        time.sleep(0.005)
-        line = port.readline().decode('ascii')
-        if line == 'ini\r\n':
-            break
+	samples = arduino.read_samples(port, n_samples, n_channels)
+	plot_measures(samples)
 
-    if line == 'ini\r\n':
-        for i in range(sampleRate):
-            #print('MEASURE A1:', port.readline().decode('ascii'))
-            #print('MEASURE A2:', port.readline().decode('ascii'))
-            val1 = port.readline().decode('ascii')
-            val2 = port.readline().decode('ascii')
-            A1.append(val1)
-            A2.append(val2)
-
-    else:
-        print('NO LEÍ EL INI :(')
-        exit()
-
-    port.write(bytes(b'stop'))
-
-    A1= list(map(int, A1))
-    A2= list(map(int, A2))
-    
-    plot_measures(n, A1, A2)
-
-    file = med_type + str(med)
-    save_csv(A1, A2, file)
-
-    port.write(bytes(b'stop'))    
+	file = name_fl 
+	# TODO: Multiple channel .csv save
+	save_csv(samples[0], samples[1], file)

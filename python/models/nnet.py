@@ -44,7 +44,6 @@ class ModelWrapper():
 
 		return predicted_labels.numpy()
 
-
 class rms_nnet(nn.Module):
 	def __init__(self):
 		super(rms_nnet, self).__init__()
@@ -68,7 +67,6 @@ class rms_nnet(nn.Module):
 
 	def reset_weights(self):
 		self.fc1.reset_parameters()	
-
 
 def train_epoch(model, data, targets, train_idx, criterion, optimizer):
 	training_loss = 0.0 
