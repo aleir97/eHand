@@ -27,7 +27,9 @@
 
 short unsigned int time = 0;
 short unsigned int tpersample = 1000/samplerateHz; // Milliseconds
-
+int value1 = 0;
+int value2 = 0;
+ 
 //Objeto de la libreria EMGFilters
 EMGFilters myFilter1;
 EMGFilters myFilter2;
@@ -41,8 +43,8 @@ NOTCH_FREQUENCY humFreq = NOTCH_FREQ_60HZ;
 // AUX Functions
 int is_arduino_sync(){
 	if (Serial.read() == SYNC_FLAG){
-   		digitalWrite(LED_BUILTIN, HIGH);
   		// Python Sync
+   		Serial.flush();    
    		Serial.write(SYNC_FLAG);    
 		return 1;
 	}
@@ -50,35 +52,25 @@ int is_arduino_sync(){
 }
 
 void setup() {   
+   	Serial.flush();    
 	Serial.begin(115200);
     
 	//Inicializamos el filtro
 	myFilter1.init(sampleRate, humFreq, true, false, true);
 	myFilter2.init(sampleRate, humFreq, true, false, true);
-
-	pinMode(LED_BUILTIN, OUTPUT);
 }
-
+ 
 void loop() {
-	int value1 = 0, DataFiltered1= 0;
-	int value2 = 0, DataFiltered2= 0;
-  
-	digitalWrite(LED_BUILTIN, HIGH);
-
 	if(is_arduino_sync()){
-		digitalWrite(LED_BUILTIN, LOW);
  	  	while(Serial.read() == -1){    
 	  		if (time <= millis()){
           		time = millis();
           
-				value1 = analogRead(EMG_CH1);
-          		DataFiltered1 = myFilter1.update(value1);
-
-          		value2 = analogRead(EMG_CH2);
-          		DataFiltered2 = myFilter2.update(value2);
+				value1 = myFilter1.update(analogRead(EMG_CH1));
+          		value2 = myFilter2.update(analogRead(EMG_CH2));
           
-          		Serial.println(DataFiltered1);         
-          		Serial.println(DataFiltered2);
+          		Serial.println(value1);
+          		Serial.println(value2);         
             
           		time = time + tpersample;
         	}
