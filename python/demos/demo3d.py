@@ -28,8 +28,8 @@ def model(port, treshold):
 	n_samples = 256
 
 	while True:
-		samples = arduino.read_samples(port, n_samples, 1)
-		rms = int (np.round(np.sqrt(np.mean(samples**2))))
+		samples = arduino.read_samples(port, n_samples, 2)
+		rms = int (np.round(np.sqrt(np.mean(samples[0]**2))))
 
 		if (rms > treshold and state != 'FIST' ):
 			state = 'FIST'
