@@ -37,16 +37,19 @@ def serial_connection():
 	if found == True:
 		try:
 			port = serial.Serial(ports[0][0], baudrate=115200, timeout=1) # Establish connection with arduino
+			time.sleep(5)
 			return True, port 
 
 		except:
 			return False, None
 
-def read_samples(port, n_samples, n_channels):
+def read_samples(port, n_samples, channels):
 	serial_sync_fl = b'\xaa'
-	samples = np.zeros(n_channels*n_samples, dtype=int)
+	serial_end_fl  = b'\xbb'
+	samples = np.zeros(channels*n_samples, dtype=int)
 	cont = 0
 
+	port.flush()
     # Send the sync signal to the arduino
 	port.write(serial_sync_fl)
 
@@ -57,10 +60,13 @@ def read_samples(port, n_samples, n_channels):
 		if cont == 1000:
 			raise Exception("Could not sync with Arduino")
 
-	for i in range(n_samples*n_channels):
+	for i in range(n_samples*channels):
 		samples[i] = port.readline().decode('ascii')
 
-	port.write(bytes(serial_sync_fl))
-	samples = np.reshape(samples, (n_channels, n_samples), order='F')
+	port.write(bytes(serial_end_fl))
+	time.sleep(0.100)
+	port.write(bytes(serial_end_fl))
+
+	samples = np.reshape(samples, (channels, n_samples), order='F')
 
 	return samples
