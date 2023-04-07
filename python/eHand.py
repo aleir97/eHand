@@ -49,7 +49,7 @@ def offline_events(window, event, values):
 
 	else:
 		#TODO: interesante que el programa deje pasar de modo ofline a online
-		sg.popup('\n\n\t\t Connect a device and restart the program \t\t\n\n') 
+		sg.popup('\n\n Connect a device and restart the program \n\n') 
 
 			
 th = None
@@ -144,7 +144,6 @@ def ui_analysis():
 
 	window.close()	
 
-
 def ui_gen():
     # Window configuration
 	sg.theme('DarkTeal9')
@@ -155,7 +154,6 @@ def ui_gen():
             [ sg.Exit('EXIT')]]
 
 	return sg.Window("eHand", layout)
-   
 
 def main():
 	online, port = connect()		
