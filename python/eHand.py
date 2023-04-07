@@ -20,6 +20,7 @@
 from measuring.measuring import *
 from analysis.emg_analysis import *
 from utils.StoppableThread import *
+from analysis.plot import plot_emg
 
 import serial
 import serial.tools.list_ports
@@ -27,7 +28,7 @@ import PySimpleGUI as sg
 from subprocess import Popen
 import time
 import com.arduino as arduino
-
+import multiprocessing
 
 def connect():
 	online, port = arduino.serial_connection()
@@ -69,14 +70,7 @@ def online_events(window, event, values, port):
 
 	elif event == "REAL TIME PLOT": 
 		port.close()
-		p1 = Popen("py D:\\PROYECTO_MANO_FPGA\\GIT\\python\\analysis\\plot.py", shell = True)
-
-	elif event == "STOP THE PLOT!":
-		if p1 != None:
-			Popen("TASKKILL /F /PID {pid} /T".format(pid=p1.pid))
-			time.sleep(2)
-			port.open()
-			p1 = None
+		multiprocessing.Process(target=plot_emg,args=(1000, 2)).start()
         
 	elif event == "PLAY!":
 		treshold = 9999 if values['treshold'] == '' else int(values['treshold'])
@@ -148,7 +142,7 @@ def ui_gen():
     # Window configuration
 	sg.theme('DarkTeal9')
 	layout = [[sg.Text('Insert the name of the record file:')],
-            [sg.Input(key='name_file', size=(10,1)), sg.Button('MAKE MEASURE'), sg.Button('REAL TIME PLOT'),sg.Button('STOP THE PLOT!')],
+            [sg.Input(key='name_file', size=(10,1)), sg.Button('MAKE MEASURE'), sg.Button('REAL TIME PLOT')],
             [[sg.In(enable_events=True, key='-FOLDER-', visible=False), sg.Button('ANALYZE DATA', key='ANALYZE')]], 
             [sg.Text("Treshold for the game or 3d Model:"), sg.Input(key='treshold',size=(10,1)), sg.Button('PLAY!'), sg.Button('CONNECT 3D!'), sg.Button('STOP!')],
             [ sg.Exit('EXIT')]]
