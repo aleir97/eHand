@@ -27,19 +27,10 @@ def game(port, treshold):
 	os.system("start \"\" https://www.minijuegos.com/juego/the-sniper-code")
 	n_samples = 256    
     
-    
-	samples = arduino.read_samples(port, n_samples, 1)
-
 	while True:
-
+		samples = arduino.read_samples(port, n_samples, 1)
 		rms = int (np.round(np.sqrt(np.mean(samples**2))))
 
 		if(rms > treshold ):
-			mouse.click('left')
 			print(rms)
-
-
-
-
-
-
+			mouse.click('left')
