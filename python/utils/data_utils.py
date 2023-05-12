@@ -25,10 +25,10 @@ import serial
 import time
 
 
-root_path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models'
+root_path = r'/Users/aleir97/Documents/eHand/python/models/'
 
 def generate_dataset(samples):
-    read_path = root_path+ '\\dataset'
+    read_path = root_path+ '/dataset'
     ind =-1
     
     for entry in os.scandir(read_path):
@@ -61,22 +61,24 @@ def generate_dataset(samples):
 
             else:
                 df2 = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [0]) 
-                df = df.append(df2, ignore_index= True)
+                # Deprecated
+                # df = df.append(df2, ignore_index= True)
+                df  = pd.concat([df2, df], ignore_index=True)
 
-    path = dataset_path+ 'emg_data.csv' 
+    path = root_path+ 'emg_data.csv' 
     df.to_csv(path, index = False, header=True)    
 
 def get_data(used_samples):
     # Function to generate the data
 	generate_dataset(used_samples)
 
-	path = root_path+ '\\emg_data.csv'
+	path = root_path+ '/emg_data.csv'
 	data_csv = pd.read_csv(path)
 
-	data = np.dstack((data_csv["CH1"].to_numpy(), data_csv["CH2"].to_numpy()))
+	data = np.dstack((data_csv["CH1"].to_numpy(dtype= np.float32), data_csv["CH2"].to_numpy(dtype= np.float32)))
 	data = data.reshape(data.shape[1:])	
 
-	targets = data_csv['class'].to_numpy()
+	targets = data_csv['class'].to_numpy(dtype= np.float32)
 
 	return data, targets
 
