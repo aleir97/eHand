@@ -29,7 +29,7 @@ from sklearn.model_selection import KFold
 from mlxtend.plotting import plot_decision_regions
 
 import sys
-sys.path.insert(1, '../utils')
+sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
 from data_utils import *
 
 dataSet_path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models'
@@ -42,7 +42,7 @@ class ModelWrapper():
 		features = torch.tensor(x, dtype= torch.float)
 		_, predicted_labels = torch.max(self.model(features), 1)
 
-		return predicted_labels.numpy()
+		return predicted_labels.numpy().astype(int)
 
 class rms_nnet(nn.Module):
 	def __init__(self):
@@ -76,6 +76,7 @@ def train_epoch(model, data, targets, train_idx, criterion, optimizer):
 		y_pred = model.forward(data[train_idx[i]])
 
 		#Compute Cross entropy loss
+		# Remember that Cross entropy already makes a log softmax to the output	
 		loss = criterion(y_pred, targets[train_idx[i]])
 
 		#Clear the previous gradients
@@ -139,7 +140,7 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 	
 	if safe:
 		wrapper = ModelWrapper(model)
-		plot_decision_regions(raw_data, raw_targets, wrapper, legend=4)
+		plot_decision_regions(raw_data.astype(int), raw_targets.astype(int), wrapper, legend=4)
 		plt.show()
 
 		if ( input('Are u sure u wanna save? YES|NO ') == 'YES' ):
@@ -148,12 +149,12 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 			exit()
 
 def main():
-	#data, targets = get_data(used_samples)
-	#data = torch.tensor(data, dtype= torch.float)
-	#train_valid_nnet(data, targets, True)
+	used_samples = 256
+	data, targets = get_data(used_samples)
+	train_valid_nnet(data, targets, True)
 	
-	model = torch.load("D:\PROYECTO_MANO_FPGA\GIT\python\models\ehand_nnet.sav")
-	classification(256, model)
+	# model = torch.load("D:\PROYECTO_MANO_FPGA\GIT\python\models\ehand_nnet.sav")
+	# classification(256, model)
 
 if __name__ == "__main__":
 	main()

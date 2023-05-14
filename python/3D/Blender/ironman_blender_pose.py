@@ -1,25 +1,17 @@
-'''
-    - Python script to modify a 3d object's pose via Blender's API
-    
-	Copyright (C) 2021 Alejandro Iregui Valcarcel
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-'''
-
 import bpy
 import mathutils
 from math import radians
+from enum import IntEnum, auto
+  
+class poses(IntEnum):
+    EXT   = 1
+    FIST  = 2
+    FLEX  = 3
+    NEY   = 4
+    PEACE = 5
+    REP   = 6
+    ROCK  = 8
+    SEÑ   = 9
 
 class ModalTimerOperator(bpy.types.Operator):
     """Operator which runs its self from a timer"""
@@ -47,24 +39,40 @@ class ModalTimerOperator(bpy.types.Operator):
 
         if event.type == 'TIMER':
             skeleton = bpy.context.object
-            f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\python\\3D\\com.txt", "r")            
+            f = open("/Users/aleir97/Documents/eHand/python/3D/com.txt", "r")            
             line = f.readline()
         
             if (line == 'REP\n' and self.state != 'REP'):
                 self.state = 'REP'
-                bpy.ops.poselib.apply_pose(pose_index=self.get_pose_index(skeleton, 'REST'))
-
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.REP] 
+            
             elif (line == 'EXT\n' and self.state != 'EXT') :
                 self.state = 'EXT'
-                bpy.ops.poselib.apply_pose(pose_index=self.get_pose_index(skeleton, 'EXT'))
-
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.EXT] 
+                
             elif (line == 'FLEX\n'  and self.state != 'FLEX'):
                 self.state = 'FLEX'
-                bpy.ops.poselib.apply_pose(pose_index=self.get_pose_index(skeleton, 'FLEX'))
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.FLEX] 
 
             elif (line == 'FIST\n'  and self.state != 'FIST'):
                 self.state = 'FIST'           
-                bpy.ops.poselib.apply_pose(pose_index=self.get_pose_index(skeleton, 'FIST'))
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.FIST] 
+
+            elif (line == 'NEY\n'  and self.state != 'NEY'):
+                self.state = 'NEY'           
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.NEY] 
+
+            elif (line == 'PEACE\n'  and self.state != 'PEACE'):
+                self.state = 'PEACE'           
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.PEACE] 
+
+            elif (line == 'ROCK\n'  and self.state != 'ROCK'):
+                self.state = 'ROCK'           
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.ROCK] 
+
+            elif (line == 'SEÑ\n'  and self.state != 'SEÑ'):
+                self.state = 'SEÑ'           
+                bpy.data.objects['Esqueleto'].animation_data.action = bpy.data.actions[poses.SEÑ] 
             
                                                             
         return {'PASS_THROUGH'}
