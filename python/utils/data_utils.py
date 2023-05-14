@@ -21,9 +21,10 @@ import numpy as np
 import pandas as pd
 import os 
 import matplotlib.pyplot as plt
-import serial
-import time
 
+import sys
+sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/')
+import com.arduino as arduino
 
 root_path = r'/Users/aleir97/Documents/eHand/python/models/'
 
@@ -32,6 +33,7 @@ def generate_dataset(samples):
     ind =-1
     
     for entry in os.scandir(read_path):
+        print(entry)
         if (entry.is_file()):
             ind += 1
             
@@ -89,88 +91,60 @@ def classification(used_samples, model):
     f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\python\\3D\\com.txt", "w")
     state = ''
 
-    # Serial port connection
-    port = serial.Serial('COM3', baudrate=115200, timeout=0.5) # Establish connection with arduino
-    port.setDTR(False)
-    time.sleep(1)
-    port.flushInput()
-    port.setDTR(True)
-    
-    A1 = []
-    A2 = []
+    online, port = arduino.serial_connection()
+    n_samples = 256
     hits = 0
     last_predict = 0
     input('THE MODEL IS READY TO CLASSIFY, PLS PRESS ENTER TO CONNECT TO THE ARDUINO AND BEGIN')
+
     while True:
-        # Send the signal sync to arduino
-        port.write(bytes(b'ini'))
+        samples = arduino.read_samples(port, n_samples, 2)
+
+        ch1rms, ch2rms = int (np.round(np.sqrt(np.mean(samples[0]**2)))), int (np.round(np.sqrt(np.mean(samples[0]**2))))    
         
-        # Receiving signal sync from arduino 
-        for i in range(50):
-            time.sleep(0.005)
-            line = port.readline().decode('ascii')
-            if line == 'ini\r\n':
-                break
-        
-        if line == 'ini\r\n':
-            while True:
-                A1 = []
-                A2 = []
-                for i in range(used_samples):
-                    A1.append(port.readline().decode('ascii'))
-                    A2.append(port.readline().decode('ascii'))
-                    
-                A1=np.fromiter(map(int, A1), dtype=int) 
-                A2=np.fromiter(map(int, A2), dtype=int)
+        hand_mvn = model.predict([ch1rms, ch2rms])[0]
+        print(hand_mvn)
 
-                ch1rms, ch2rms = int (np.round(np.sqrt(np.mean(A1**2)))), int (np.round(np.sqrt(np.mean(A2**2))))    
-                
-                #print("RMS CH1:%d, CH2:%d\n" % (ch1rms, ch2rms))
-                hand_mvn = model.predict([ch1rms, ch2rms])[0]
-                
-                if last_predict == hand_mvn:
-                    hits += 1
-                else:
-                    hits = 0
-
-                if (hits == 3 and hand_mvn == 0 and state != 'REP'):
-                    print(hand_mvn)
-					#keyboard.release("right")
-                    #keyboard.release("left")
-                    #keyboard.release("z")
-                    
-                    state = 'REP'
-                    f.seek(0)
-                    f.write('REP\n')
-                    f.truncate()
-
-                elif (hits == 3 and hand_mvn == 1 and state != 'FLEX'):
-                    print(hand_mvn)
-                    #keyboard.press("right")
-                    state = 'FLEX'
-                    f.seek(0)
-                    f.write('FLEX\n')
-                    f.truncate()
-                     
-                elif (hits == 3 and hand_mvn == 2  and state != 'EXT') :
-                    print(hand_mvn)
-                    #keyboard.press("left")
-                    state = 'EXT'
-                    f.seek(0)
-                    f.write('EXT\n')
-                    f.truncate()
-
-                elif (hits == 3 and hand_mvn == 3  and state != 'FIST') :
-                    print(hand_mvn)
-                    #keyboard.press("z")
-                    state = 'FIST'
-                    f.seek(0)
-                    f.write('FIST\n')
-                    f.truncate()
-
-                last_predict = hand_mvn 
+        if last_predict == hand_mvn:
+            hits += 1
         else:
-            port.write(bytes(b'stop'))  
+            hits = 0
 
+        if (hits == 3 and hand_mvn == 0 and state != 'REP'):
+            print(hand_mvn)
+            #keyboard.release("right")
+            #keyboard.release("left")
+            #keyboard.release("z")
+            
+            state = 'REP'
+            f.seek(0)
+            f.write('REP\n')
+            f.truncate()
+
+        elif (hits == 3 and hand_mvn == 1 and state != 'FLEX'):
+            print(hand_mvn)
+            #keyboard.press("right")
+            state = 'FLEX'
+            f.seek(0)
+            f.write('FLEX\n')
+            f.truncate()
+                
+        elif (hits == 3 and hand_mvn == 2  and state != 'EXT') :
+            print(hand_mvn)
+            #keyboard.press("left")
+            state = 'EXT'
+            f.seek(0)
+            f.write('EXT\n')
+            f.truncate()
+
+        elif (hits == 3 and hand_mvn == 3  and state != 'FIST') :
+            print(hand_mvn)
+            #keyboard.press("z")
+            state = 'FIST'
+            f.seek(0)
+            f.write('FIST\n')
+            f.truncate()
+
+        last_predict = hand_mvn 
 
     return 0

@@ -27,7 +27,7 @@ def serial_connection():
 	#TODO: Que te deje elegir la conexion mediante una lista de dispositivos
     # Serial port connection
 	found = False
-	ports = list(serial.tools.list_ports.grep('.*Arduino.*', include_links=False))
+	ports = list(serial.tools.list_ports.grep('cu.usbmodem11201', include_links=False))
 
 	if len(ports) != 0:
 		found = True	

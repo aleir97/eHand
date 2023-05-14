@@ -17,7 +17,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-import winsound
 import pandas as pd
 import matplotlib.pyplot as plt 
 import os
@@ -26,7 +25,7 @@ import com.arduino as arduino
 
 
 date = datetime.today().strftime('%d-%Y-%m')
-measure_dir =  r"..\emg_data"+ '\\'+ date
+measure_dir =  r"../emg_data"+ '/'+ date
 
 if (os.path.isdir(measure_dir) == False):
     os.mkdir(measure_dir)
@@ -37,14 +36,11 @@ def save_csv(A1, A2, file):
 
     df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
     
-    path = measure_dir+ '\\'+ file+ '.csv' 
+    path = measure_dir+ '/'+ file+ '.csv' 
     df.to_csv (path, index = False, header=True)
 
 def make_sound():
-    #Sound parameters
-    frequency = 500  # Set Frequency To 500 Hertz
-    duration = 2000  # Set Duration To 2000 ms == 2 second
-    winsound.Beep(frequency, duration)
+    os.system('say "YA!"')
 
 def plot_measures(samp):
 	title = "CH{channel:d}:"

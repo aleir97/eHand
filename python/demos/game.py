@@ -18,7 +18,7 @@
 '''
 
 import numpy as np
-import mouse
+import macmouse
 import os
 import time
 import com.arduino as arduino
@@ -31,6 +31,7 @@ def game(port, treshold):
 		samples = arduino.read_samples(port, n_samples, 2)
 		rms = int (np.round(np.sqrt(np.mean(samples[0]**2))))
 
+		print(rms)
 		if(rms > treshold ):
 			print(rms)
-			mouse.click('left')
+			macmouse.click('left')
