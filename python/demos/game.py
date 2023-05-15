@@ -24,7 +24,9 @@ import time
 import com.arduino as arduino
 
 def game(port, treshold):
-	os.system("start \"\" https://www.minijuegos.com/juego/the-sniper-code")
+	os.system("python3 -mwebbrowser https://www.minijuegos.com/juego/the-sniper-code")
+	os.system("python -mwebbrowser  https://www.minijuegos.com/juego/the-sniper-code")
+
 	n_samples = 256    
     
 	while True:

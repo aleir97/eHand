@@ -30,14 +30,21 @@ import time
 import com.arduino as arduino
 import multiprocessing
 
+th = None
+med = 0
+port = None
+online = False
+
 def connect():
+	global port
+	global online
+
 	online, port = arduino.serial_connection()
 
 	if (not online):
 		sg.popup_error('\n\n Connection not found, going offline \t\t\n\n')
 		return online, None
 
-	return online, port
 
 def offline_events(window, event, values):
 	if event == 'ANALYZE':
@@ -51,13 +58,11 @@ def offline_events(window, event, values):
 	else:
 		#TODO: interesante que el programa deje pasar de modo ofline a online
 		sg.popup('\n\n Connect a device and restart the program \n\n') 
-
 			
-th = None
-med = 0
-def online_events(window, event, values, port):
+def online_events(window, event, values):
 	global 	th 
 	global	med
+	global port
 
 	if event == "MAKE MEASURE":
 		med += 1
@@ -68,7 +73,10 @@ def online_events(window, event, values, port):
 
 	elif event == "REAL TIME PLOT": 
 		port.close()
-		multiprocessing.Process(target=plot_emg,args=(1000, 2)).start()
+		p = multiprocessing.Process(target=plot_emg,args=(1000, 2))
+		p.start()
+		p.join()
+		connect()		
         
 	elif event == "PLAY!":
 		treshold = 9999 if values['treshold'] == '' else int(values['treshold'])
@@ -143,8 +151,9 @@ def ui_gen():
 	return sg.Window("eHand", layout)
 
 def main():
-	online, port = connect()		
+	global online
 
+	connect()		
 	window = ui_gen()	
 
 	# Create an event loop
@@ -152,7 +161,7 @@ def main():
 		event, values = window.read()
 		
 		if online:
-			online_events(window, event, values, port)
+			online_events(window, event, values)
 		else:
 			offline_events(window, event, values)
 
