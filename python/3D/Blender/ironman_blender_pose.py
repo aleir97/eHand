@@ -1,6 +1,4 @@
 import bpy
-import mathutils
-from math import radians
 from enum import IntEnum, auto
   
 class poses(IntEnum):

@@ -4,3 +4,4 @@ __pycache__/
 .DS_*
 build
 .vscode
+python/models/dataset/*

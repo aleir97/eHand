@@ -27,6 +27,7 @@ from sklearn.metrics import accuracy_score
 import torch.nn.functional as F
 from sklearn.model_selection import KFold
 from mlxtend.plotting import plot_decision_regions
+import matplotlib.pyplot as plt 
 
 import sys
 sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
@@ -153,8 +154,8 @@ def main():
 	data, targets = get_data(used_samples)
 	train_valid_nnet(data, targets, True)
 	
-	# model = torch.load("D:\PROYECTO_MANO_FPGA\GIT\python\models\ehand_nnet.sav")
-	# classification(256, model)
+	model = torch.load("/Users/aleir97/Documents/eHand/python/models/ehand_nnet.sav")
+	classification(256, model)
 
 if __name__ == "__main__":
 	main()
