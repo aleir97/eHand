@@ -20,6 +20,8 @@
 from matplotlib.animation import FuncAnimation
 import numpy as	np
 import matplotlib.pyplot as	plt	
+import matplotlib as mpl
+mpl.use('MacOSX')
 import com.arduino as arduino
 
 class EmgPlot:

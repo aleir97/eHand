@@ -21,12 +21,10 @@ from scipy import signal as sg
 from scipy.fft import fft, fftfreq
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy.core.fromnumeric import mean
 import pandas as pd
-import os 
 
-import matplotlib.lines as mlines
-import matplotlib.transforms as mtransforms
+import matplotlib as mpl
+mpl.use('MacOSX')
 
 freq = 1000 
 n = np.arange(1, freq+1)

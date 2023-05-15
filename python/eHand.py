@@ -55,11 +55,9 @@ def offline_events(window, event, values):
 			
 th = None
 med = 0
-p1 = None
 def online_events(window, event, values, port):
 	global 	th 
 	global	med
-	global	p1
 
 	if event == "MAKE MEASURE":
 		med += 1
@@ -98,11 +96,6 @@ def online_events(window, event, values, port):
 			th.raise_exception()
 			th.join()
 			th = None
-
-		if p1 != None:
-			Popen("TASKKILL /F /PID {pid} /T".format(pid=p1.pid))
-			time.sleep(2)
-			p1 = None
     
 		window.close()
 		exit()

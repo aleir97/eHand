@@ -20,7 +20,6 @@
 import numpy as np
 import pandas as pd
 import os 
-import matplotlib.pyplot as plt
 
 import sys
 sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/')

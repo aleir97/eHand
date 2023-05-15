@@ -24,8 +24,8 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from sklearn.model_selection import *
 import pickle
-import keyboard
-
+import matplotlib as mpl
+mpl.use('MacOSX')
 import sys
 sys.path.insert(1, '../utils')
 from data_utils import *

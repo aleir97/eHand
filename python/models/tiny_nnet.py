@@ -27,12 +27,10 @@ from sklearn.model_selection import KFold
 from mlxtend.plotting import plot_decision_regions
 
 import os
-os.environ["METAL"] = "1"
+os.environ["GPU"] = "1"
 import sys
 sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
 from data_utils import *
-
-dataSet_path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models'
 
 def sparse_categorical_crossentropy(out, Y):
   num_classes = out.shape[-1]
@@ -125,6 +123,9 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 	criterion = sparse_categorical_crossentropy
 
 	# Define the optimizer
+	params = optim.get_parameters(model)
+	[x.gpu_() for x in params]
+
 	optimizer = optim.Adam(optim.get_parameters(model), lr=0.05)
 
 	# Number of epochs

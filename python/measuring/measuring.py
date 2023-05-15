@@ -23,6 +23,8 @@ import os
 from datetime import datetime
 import com.arduino as arduino
 
+import matplotlib as mpl
+mpl.use('MacOSX')
 
 date = datetime.today().strftime('%d-%Y-%m')
 measure_dir =  r"../emg_data"+ '/'+ date
@@ -37,7 +39,7 @@ def save_csv(A1, A2, file):
     df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
     
     path = measure_dir+ '/'+ file+ '.csv' 
-    df.to_csv (path, index = False, header=True)
+    df.to_csv (path, index=False, header=True)
 
 def make_sound():
     os.system('say "YA!"')
