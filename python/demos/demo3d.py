@@ -23,7 +23,7 @@ import threading
 import com.arduino as arduino
 
 def model(port, treshold):
-	f = open("D:\\PROYECTO_MANO_FPGA\\GIT\\python\\3D\\com.txt", "w")
+	f = open("/Users/aleir97/Documents/eHand/python/3D/com.txt", "w")
 	state = ''
 	n_samples = 256
 

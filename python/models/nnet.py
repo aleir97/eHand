@@ -154,8 +154,8 @@ def main():
 	data, targets = get_data(used_samples)
 	train_valid_nnet(data, targets, True)
 	
-	model = torch.load("/Users/aleir97/Documents/eHand/python/models/ehand_nnet.sav")
-	classification(256, model)
+	# model = torch.load("/Users/aleir97/Documents/eHand/python/models/ehand_nnet.sav")
+	# classification(256, model)
 
 if __name__ == "__main__":
 	main()
