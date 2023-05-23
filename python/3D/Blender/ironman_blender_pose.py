@@ -1,15 +1,17 @@
 import bpy
+import mathutils
+from math import radians
 from enum import IntEnum, auto
   
 class poses(IntEnum):
-    EXT   = 1
-    FIST  = 2
-    FLEX  = 3
-    NEY   = 4
-    PEACE = 5
-    REP   = 6
-    ROCK  = 8
-    SEÑ   = 9
+    EXT   = 0
+    FIST  = 1
+    FLEX  = 2
+    NEY   = 3
+    PEACE = 4
+    REP   = 5
+    ROCK  = 6
+    SEÑ   = 7
 
 class ModalTimerOperator(bpy.types.Operator):
     """Operator which runs its self from a timer"""
