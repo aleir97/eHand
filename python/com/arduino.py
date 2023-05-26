@@ -1,7 +1,7 @@
 '''
     - Python module to synchronize between serial device and PC to acquire and measure EMG samples
     
-	Copyright (C) 2021 Alejandro Iregui Valcarcel
+    Copyright (C) 2021 Alejandro Iregui Valcarcel
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,49 +24,49 @@ import serial.tools.list_ports
 
 
 def serial_connection():
-	#TODO: Que te deje elegir la conexion mediante una lista de dispositivos
-    # Serial port connection
-	found = False
-	ports = list(serial.tools.list_ports.grep('cu.usbmodem11201', include_links=False))
+    #TODO: Que te deje elegir la conexion mediante una lista de dispositivos
+    ports = list(serial.tools.list_ports.comports())
 
-	if len(ports) != 0:
-		found = True	
-	else:
-		return False, None
+    if len(ports) != 0:
+        idx_found = [i for i, x in enumerate([(lambda p: True if (p.manufacturer != None) and 'arduino' in p.manufacturer.lower() else False)(pi) for pi in ports]) if x] 
 
-	if found == True:
-		try:
-			port = serial.Serial(ports[0][0], baudrate=115200, timeout=1) # Establish connection with arduino
-			time.sleep(5)
-			return True, port 
+    else:
+        return False, None
 
-		except:
-			return False, None
+    if len(idx_found) > 0:
+        try:
+            port = serial.Serial(ports[idx_found[0]][0], baudrate=115200, timeout=1) # Establish connection with arduino
+            time.sleep(5)
+            return True, port 
+
+        except:
+            print("exception!!")
+            return False, None
 
 def read_samples(port, n_samples, channels):
-	serial_sync_fl = b'\xaa'
-	serial_end_fl  = b'\xbb'
-	samples = np.zeros(channels*n_samples, dtype=int)
-	cont = 0
+    serial_sync_fl = b'\xaa'
+    serial_end_fl  = b'\xbb'
+    samples = np.zeros(channels*n_samples, dtype=int)
+    cont = 0
 
-	port.flush()
+    port.flush()
     # Send the sync signal to the arduino
-	port.write(serial_sync_fl)
+    port.write(serial_sync_fl)
 
     # Receiving sync signal from arduino 
-	while (port.readable() and port.read()!= serial_sync_fl):
-		cont +=1
-		time.sleep(0.001)
-		if cont == 1000:
-			raise Exception("Could not sync with Arduino")
+    while (port.readable() and port.read()!= serial_sync_fl):
+        cont +=1
+        time.sleep(0.001)
+        if cont == 1000:
+            raise Exception("Could not sync with Arduino")
 
-	for i in range(n_samples*channels):
-		samples[i] = port.readline().decode('ascii')
+    for i in range(n_samples*channels):
+        samples[i] = port.readline().decode('ascii')
 
-	port.write(bytes(serial_end_fl))
-	time.sleep(0.100)
-	port.write(bytes(serial_end_fl))
+    port.write(bytes(serial_end_fl))
+    time.sleep(0.100)
+    port.write(bytes(serial_end_fl))
 
-	samples = np.reshape(samples, (channels, n_samples), order='F')
+    samples = np.reshape(samples, (channels, n_samples), order='F')
 
-	return samples
+    return samples
