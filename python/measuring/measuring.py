@@ -1,7 +1,7 @@
 '''
     - Python module to synchronize between serial device and PC to acquire and measure EMG samples
     
-	Copyright (C) 2021 Alejandro Iregui Valcarcel
+    Copyright (C) 2021 Alejandro Iregui Valcarcel
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,14 +20,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt 
 import os
-from datetime import datetime
 import com.arduino as arduino
+from utils.path_handler import measure_dir
 
-import matplotlib as mpl
-mpl.use('MacOSX')
-
-date = datetime.today().strftime('%d-%Y-%m')
-measure_dir =  r"../emg_data"+ '/'+ date
 
 if (os.path.isdir(measure_dir) == False):
     os.mkdir(measure_dir)
@@ -38,31 +33,34 @@ def save_csv(A1, A2, file):
 
     df = pd.DataFrame(data, columns= ['CH1', 'CH2'])
     
-    path = measure_dir+ '/'+ file+ '.csv' 
+    path = measure_dir / (file + '.csv')
     df.to_csv (path, index=False, header=True)
 
 def make_sound():
     os.system('say "YA!"')
 
-def plot_measures(samp):
-	title = "CH{channel:d}:"
+def plot_measures(samp, file):
+    title = "CH{channel:d}:"
 
-	plt.figure()
-	ax = plt.subplot(samp.shape[0]*100+11)
+    plt.figure()
+    ax = plt.subplot(samp.shape[0]*100+11)
 
-	for i in range(samp.shape[0]):
-		ax = plt.subplot(210+i+1)
-		ax.set_title(title.format(channel=i+1))
-		plt.plot(samp[i])
+    for i in range(samp.shape[0]):
+        ax = plt.subplot(210+i+1)
+        ax.set_title(title.format(channel=i+1))
+        plt.plot(samp[i])
 
-	plt.show()
+    path = measure_dir / file 
+    plt.savefig(path)
+
+    # Bugged in OSX
+    # plt.show()
 
 def make_measures(name_fl, port, n_channels, n_samples):
-	make_sound()
+    make_sound()
 
-	samples = arduino.read_samples(port, n_samples, n_channels)
-	plot_measures(samples)
+    samples = arduino.read_samples(port, n_samples, n_channels)
+    plot_measures(samples, name_fl)
 
-	file = name_fl 
-	# TODO: Multiple channel .csv save
-	save_csv(samples[0], samples[1], file)
+    # TODO: Multiple channel .csv save
+    save_csv(samples[0], samples[1], name_fl)
