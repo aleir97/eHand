@@ -30,6 +30,8 @@ from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt 
 
 import sys
+sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/demos')
+from demo3d import *
 sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
 from data_utils import *
 
@@ -150,12 +152,13 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 			exit()
 
 def main():
-	used_samples = 256
-	data, targets = get_data(used_samples)
-	train_valid_nnet(data, targets, True)
+	# used_samples = 256
+	# data, targets = get_data(used_samples)
+	# train_valid_nnet(data, targets, True)
 	
-	# model = torch.load("/Users/aleir97/Documents/eHand/python/models/ehand_nnet.sav")
+	model = torch.load("/Users/aleir97/Documents/eHand/python/models/ehand_nnet.sav")
 	# classification(256, model)
+	classification_state_machine(256, model)
 
 if __name__ == "__main__":
 	main()
