@@ -27,51 +27,49 @@ import com.arduino as arduino
 
 root_path = r'/Users/aleir97/Documents/eHand/python/models/'
 
-def generate_dataset(samples):
-    read_path = root_path+ '/dataset'
+def generate_dataset(files, samples):
     ind =-1
     
-    for entry in os.scandir(read_path):
-        print(entry)
-        if (entry.is_file()):
-            ind += 1
-            
-            signal = pd.read_csv(entry.path)
-            
-            ch1, ch2 = signal["CH1"].to_numpy(), signal["CH2"].to_numpy()    
-            ch1, ch2  = ch1[1:samples+1], ch2[1:samples+1] 
+    for entry in files:
+        print("DATA FROM FILE: "+ entry)
+
+        ind += 1
+        signal = pd.read_csv(entry)
         
-            ch1rms, ch2rms = int (np.round(np.sqrt(np.mean(ch1**2)))), int (np.round(np.sqrt(np.mean(ch2**2))))         
-        
-            if "rest" in entry.name:
-                mvmnt = 0
-            elif 'flex'  in entry.name:
-                mvmnt = 1 
-            elif 'ext' in entry.name:
-                mvmnt = 2
-            elif 'fist' in entry.name:
-                mvmnt = 3
+        ch1, ch2 = signal["CH1"].to_numpy(), signal["CH2"].to_numpy()    
+        ch1, ch2  = ch1[1:samples+1], ch2[1:samples+1] 
+    
+        ch1rms, ch2rms = int (np.round(np.sqrt(np.mean(ch1**2)))), int (np.round(np.sqrt(np.mean(ch2**2))))         
+    
+        if "rest" in entry:
+            mvmnt = 0
+        elif 'flex'  in entry:
+            mvmnt = 1 
+        elif 'ext' in entry:
+            mvmnt = 2
+        elif 'fist' in entry:
+            mvmnt = 3
 
-            data = {'CH1': ch1rms,
-            'CH2': ch2rms,
-            'class': mvmnt    
-            }
+        data = {'CH1': ch1rms,
+        'CH2': ch2rms,
+        'class': mvmnt    
+        }
 
-            if (ind == 0):
-                 df = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [ind])
+        if (ind == 0):
+                df = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [ind])
 
-            else:
-                df2 = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [0]) 
-                # Deprecated
-                # df = df.append(df2, ignore_index= True)
-                df  = pd.concat([df2, df], ignore_index=True)
+        else:
+            df2 = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [0]) 
+            # Deprecated
+            # df = df.append(df2, ignore_index= True)
+            df  = pd.concat([df2, df], ignore_index=True)
 
     path = root_path+ 'emg_data.csv' 
     df.to_csv(path, index = False, header=True)    
 
-def get_data(used_samples):
+def get_data(files, used_samples):
     # Function to generate the data
-	generate_dataset(used_samples)
+	generate_dataset(files, used_samples)
 
 	path = root_path+ '/emg_data.csv'
 	data_csv = pd.read_csv(path)

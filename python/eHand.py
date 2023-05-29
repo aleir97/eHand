@@ -21,12 +21,11 @@ from measuring.measuring import *
 from analysis.emg_analysis import *
 from utils.StoppableThread import *
 from analysis.plot import plot_emg
+from utils.data_utils import get_data
+from models.nnet import train_valid_nnet
+from demos.demo3d import classification, classification_state_machine
 
-import serial
-import serial.tools.list_ports
 import PySimpleGUI as sg
-from subprocess import Popen
-import time
 import com.arduino as arduino
 import multiprocessing
 
@@ -46,7 +45,10 @@ def connect():
 		return online, None
 
 
+files = []
 def offline_events(window, event, values):
+	global files
+
 	if event == 'ANALYZE':
 		ui_analysis()
         
@@ -55,14 +57,23 @@ def offline_events(window, event, values):
 		window.close()
 		exit()
 
+	elif event == '-DATASET-':
+		files = files + values['-DATASET-'].split(';')			
+
+	elif event == 'TRAIN!':
+		if len(files) == 0:
+			sg.popup('\n\n       First add a training dataset!       \n\n')
+		else:
+			train_valid_nnet(*get_data(files, 256), True)
+
 	else:
 		#TODO: interesante que el programa deje pasar de modo ofline a online
 		sg.popup('\n\n Connect a device and restart the program \n\n') 
 			
 def online_events(window, event, values):
-	global 	th 
+	global  th 
 	global	med
-	global port
+	global  port
 
 	if event == "MAKE MEASURE":
 		med += 1
@@ -118,11 +129,11 @@ def ui_analysis():
 
 	window = sg.Window('Analysis', layout)
 
-	files = []
 	while True:
 		event, values = window.read()
 		
 		if event == '-FOLDER-':
+			files = []
 			# Meterle los valores de los checks
 			files = files + values['-FOLDER-'].split(';')			
 
@@ -131,7 +142,6 @@ def ui_analysis():
 				sg.popup('\n\n       Select some files       \n\n')
 			else:
 				analysis(files, [values['Mean'], values['RMS'], values['FFT']]) 
-				files = []
 
 		# To close the window
 		elif (event == 'Exit' or event == sg.WIN_CLOSED): 
@@ -146,7 +156,9 @@ def ui_gen():
             [sg.Input(key='name_file', size=(10,1)), sg.Button('MAKE MEASURE'), sg.Button('REAL TIME PLOT')],
             [[sg.In(enable_events=True, key='-FOLDER-', visible=False), sg.Button('ANALYZE DATA', key='ANALYZE')]], 
             [sg.Text("Treshold for the game or 3d Model:"), sg.Input(key='treshold',size=(10,1)), sg.Button('PLAY!'), sg.Button('CONNECT 3D!'), sg.Button('STOP!')],
-            [ sg.Exit('EXIT')]]
+            [sg.Text("Train your Classifier:"), sg.In(enable_events=True, key='-DATASET-', visible=False), sg.FilesBrowse('Add train dataset', target='-DATASET-'), sg.Button('TRAIN!'), 
+	     			sg.In(enable_events=True, key='-MODEL-', visible=False), sg.FilesBrowse('LOAD & RUN!', target='-MODEL-')],
+            [sg.Exit('EXIT')]]
 
 	return sg.Window("eHand", layout)
 
