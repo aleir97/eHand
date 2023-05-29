@@ -27,8 +27,9 @@ def serial_connection():
     #TODO: Que te deje elegir la conexion mediante una lista de dispositivos
     ports = list(serial.tools.list_ports.comports())
 
+    
     if len(ports) != 0:
-        idx_found = [i for i, x in enumerate([(lambda p: True if (p.manufacturer != None) and 'arduino' in p.manufacturer.lower() else False)(pi) for pi in ports]) if x] 
+        idx_found = [i for i, x in enumerate([(lambda p: True if p.manufacturer != None and 'arduino' in p.manufacturer.lower() else False)(pi) for pi in ports]) if x] 
 
     else:
         return False, None
@@ -40,8 +41,9 @@ def serial_connection():
             return True, port 
 
         except:
-            print("exception!!")
             return False, None
+    
+    return False, None
 
 def read_samples(port, n_samples, channels):
     serial_sync_fl = b'\xaa'
