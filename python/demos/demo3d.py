@@ -150,11 +150,9 @@ def classification_state_machine(n_samples, model):
 
     return 0
 
-def classification(used_samples, model):
+def classification(n_samples, port, model):
     state = ''
 
-    online, port = arduino.serial_connection()
-    n_samples = 256
     hits = 0
     last_predict = 0
     input('THE MODEL IS READY TO CLASSIFY, PLS PRESS ENTER TO CONNECT TO THE ARDUINO AND BEGIN')

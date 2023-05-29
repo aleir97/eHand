@@ -148,8 +148,9 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 
 		if ( input('Are u sure u wanna save? YES|NO ') == 'YES' ):
 			torch.save(model,'ehand_nnet.sav')    
-		else:
-			exit()
+
+def load_model(path):
+	return torch.load(path)
 
 def main():
 	# used_samples = 256
