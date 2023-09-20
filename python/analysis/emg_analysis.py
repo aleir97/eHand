@@ -23,8 +23,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-import matplotlib as mpl
-mpl.use('MacOSX')
 
 freq = 1000 
 n = np.arange(1, freq+1)
@@ -134,8 +132,8 @@ def analysis(files, options):
 	for entry in files:
 		print("DATA FROM FILE: "+ entry)
 		signal = pd.read_csv(entry)
-		ch1 = signal["CH1"].to_numpy()
-		ch2 = signal["CH2"].to_numpy()    
+		ch1 = signal["CH1"].to_numpy() - signal["CH1"].to_numpy().mean()
+		ch2 = signal["CH2"].to_numpy() - signal["CH2"].to_numpy().mean()   
 
 		#order = 5
 		#lowcut = 40 / (freq/2)
@@ -215,7 +213,7 @@ def analysis(files, options):
 		plt.axvline(treshold_rms, color='red')
 		print(treshold_rms)
 
-	plt.show()
+	plt.show(block=False)
 
 def main():
     dire = r'D:\\PROYECTO_MANO_FPGA\\GIT\\measures\\25-2021-11-Alberto-Umbral'
