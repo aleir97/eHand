@@ -20,15 +20,10 @@
 import numpy as np
 import time
 import threading 
-# This is needed till the execution of models is at eHand
-import sys
-sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/')
 import com.arduino as arduino
 from utils.path_handler import blender_dir 
 
-
-f = open("/Users/aleir97/Documents/eHand/python/3D/com.txt", "w")
-# f = open(blender_dir / "com.txt", "w")
+f = open(blender_dir / "com.txt", "w")
 
 def model(port, treshold):
     state = ''

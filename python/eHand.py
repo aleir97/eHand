@@ -17,6 +17,10 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
+import sys
+from utils.path_handler import ehand_path
+sys.path.insert(1, ehand_path)
+
 from measuring.measuring import *
 from analysis.emg_analysis import *
 from utils.StoppableThread import *

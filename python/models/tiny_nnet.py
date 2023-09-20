@@ -28,8 +28,6 @@ from mlxtend.plotting import plot_decision_regions
 
 import os
 os.environ["GPU"] = "1"
-import sys
-sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
 from data_utils import *
 
 def sparse_categorical_crossentropy(out, Y):

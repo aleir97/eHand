@@ -26,8 +26,6 @@ from sklearn.model_selection import *
 import pickle
 import matplotlib as mpl
 mpl.use('MacOSX')
-import sys
-sys.path.insert(1, '../utils')
 from data_utils import *
 
 

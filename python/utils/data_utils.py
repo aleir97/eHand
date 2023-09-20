@@ -19,13 +19,8 @@
 
 import numpy as np
 import pandas as pd
-import os 
 
-import sys
-sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/')
-import com.arduino as arduino
-
-root_path = r'/Users/aleir97/Documents/eHand/python/models/'
+from utils.path_handler import models_dir
 
 def generate_dataset(files, samples):
     ind =-1
@@ -53,8 +48,7 @@ def generate_dataset(files, samples):
 
         data = {'CH1': ch1rms,
         'CH2': ch2rms,
-        'class': mvmnt    
-        }
+        'class': mvmnt}
 
         if (ind == 0):
                 df = pd.DataFrame(data, columns= ['CH1', 'CH2', 'class'], index = [ind])
@@ -65,15 +59,13 @@ def generate_dataset(files, samples):
             # df = df.append(df2, ignore_index= True)
             df  = pd.concat([df2, df], ignore_index=True)
 
-    path = root_path+ 'emg_data.csv' 
-    df.to_csv(path, index = False, header=True)    
+    df.to_csv(models_dir / 'emg_data.csv', index = False, header=True)    
 
 def get_data(files, used_samples):
     # Function to generate the data
 	generate_dataset(files, used_samples)
 
-	path = root_path+ '/emg_data.csv'
-	data_csv = pd.read_csv(path)
+	data_csv = pd.read_csv(models_dir / 'emg_data.csv')
 
 	data = np.dstack((data_csv["CH1"].to_numpy(dtype= np.float32), data_csv["CH2"].to_numpy(dtype= np.float32)))
 	data = data.reshape(data.shape[1:])	

@@ -11,3 +11,4 @@ py_path    = Path('.')
 
 measure_dir = ehand_path / "emg_data" / date 
 blender_dir = py_path    / "3D" 
+models_dir  = py_path    / "models"

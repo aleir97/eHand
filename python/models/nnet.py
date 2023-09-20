@@ -29,12 +29,6 @@ from sklearn.model_selection import KFold
 from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt 
 
-import sys
-sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/demos')
-from demo3d import *
-sys.path.insert(1, '/Users/aleir97/Documents/eHand/python/utils')
-from data_utils import *
-
 dataSet_path = r'D:\PROYECTO_MANO_FPGA\GIT\python\models'
 	
 class ModelWrapper():
