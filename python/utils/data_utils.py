@@ -37,6 +37,7 @@ def generate_dataset(files, samples):
         signal = pd.read_csv(entry)
         
         ch1, ch2 = signal["CH1"].to_numpy(), signal["CH2"].to_numpy()    
+        ch1, ch2 = ch1 - ch1.mean(), ch2 - ch2.mean()
         ch1, ch2  = ch1[1:samples+1], ch2[1:samples+1] 
     
         ch1rms, ch2rms = int (np.round(np.sqrt(np.mean(ch1**2)))), int (np.round(np.sqrt(np.mean(ch2**2))))         
