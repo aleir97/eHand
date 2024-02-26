@@ -29,17 +29,28 @@ from tinygrad.dtype import dtypes
 import numpy as np
 from sklearn.model_selection import KFold
 from mlxtend.plotting import plot_decision_regions
-from utils.data_utils import get_data, calculate_rms
+from utils.data_utils import get_data, calculate_cwt
 import matplotlib.pyplot as plt
 
-class rms_nnet:
+class ConvNet:
+
 	def __init__(self):
+		# Convolutional layers
+		self.conv1 = nn.Conv2d(2, 16, kernel_size=3, stride=1, bias=False, padding=1)
+		self.bn1 = nn.BatchNorm2d(16)
+		self.conv2 = nn.Conv2d(16, 32, kernel_size=3, stride=1, bias=False, padding=1)
+		self.bn2 = nn.BatchNorm2d(32)
+
 		#This applies Linear transformation to input data.
-		self.fc1 = nn.Linear(2, 4)
+		self.fc1 = nn.Linear(32, 4)
 
 	def forward(self, x):
 		#Output of the first layer
-		return self.fc1(x)
+		out = self.bn1(self.conv1(x)).relu().max_pool2d((2,2),2)
+		out = self.bn2(self.conv2(out)).relu().max_pool2d((2,2))
+		out = out.mean([2,3])
+		out = self.fc1(out)
+		return out
 
 	#This function takes an input and predicts the class, (Resting, Flex, Ext, Fist)
 	def predict(self, x):
@@ -73,7 +84,7 @@ def valid_epoch(model, data, targets):
 
 def train_valid_nnet(raw_data, raw_targets, safe=False):
 	# Build the model
-	model = rms_nnet()
+	model = ConvNet()
 
 	# Define the optimizer
 	optimizer = optim.Adam(get_parameters(model), lr=0.05)
@@ -93,17 +104,12 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 
 			if w == (epochs-1):
 				print("FOLD: ", fold, " Epoch: ", w, "Training loss: ", training_loss/(len(train_idx)*epochs), "Validation Loss: ", valid_loss/(len(val_idx)*epochs))
-
 		if not safe:
 			# Reset model parameters between folds to make an entire validation
 			model.reset_weights()
 
 	if safe:
-		# wrapper = ModelWrapper(model)
 		model.predict(raw_data.astype(int))
-
-		plot_decision_regions(raw_data.astype(int), raw_targets.astype(int), model, legend=4)
-		plt.show()
 
 		if ( input('Are u sure u wanna save? YES|NO ') == 'YES' ):
 			safe_save(get_state_dict(model), "model.safetensors")
@@ -111,8 +117,8 @@ def train_valid_nnet(raw_data, raw_targets, safe=False):
 			exit()
 
 def main():
-	data, targets = get_data(os.scandir('/Users/aleir97/Documents/ehand/emg_data/26-2023-05'))
-	data = calculate_rms(data)
+	data, targets = get_data(os.scandir('/Users/aleir97/Documents/ehand/emg_data/26-2023-05'),samples=128)
+	data = calculate_cwt(data, num_scales=128)
 	train_valid_nnet(data, targets, True)
 
 	# model = torch.load("D:\PROYECTO_MANO_FPGA\GIT\python\models\ehand_nnet.sav")
